@@ -1,0 +1,20 @@
+{
+    "Version": "1.0",
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "eu-west-1:b9b64e2a-e76f-4dff-aaea-1245dd1d2958",
+                "Region": "eu-west-1"
+            }
+        }
+    },
+    "IdentityManager": {
+        "Default": {}
+    },
+    "S3TransferUtility": {
+        "Default": {
+            "Bucket": "gni-ptw-ireland",
+            "Region": "eu-west-1"
+        }
+    }
+}

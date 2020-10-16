@@ -1,0 +1,356 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">CMS Plus</string>
+
+    <string name="title_activity_main" translatable="false">Good Neighbors</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+    <string name="title_activity_maps" translatable="false">Map</string>
+
+    <string name="consent_1_title" translatable="false">- CONSENT OF SPONSORSHIP -</string>
+    <string name="consent_1_contents" translatable="false">
+        The Sponsorship Program of Good Neighbors is for children in need. The success of this program is possible
+        through a partnership with the child and parents/guardians. The following conditions and obligations are for the
+        eligibility for sponsorship.
+    </string>
+
+    <string name="consent_2_title" translatable="false">- CONDITIONS FOR SPONSORSHIP -</string>
+    <string name="consent_2_contents" translatable="false">
+        1. The sponsored children shall be between the age of 2 and 13 years for the first time of the sponsorship.
+        \n2. Through the sponsorship, every child has 1 sponsor.
+        \n3. Community development and services for sponsored children could be achieved by sponsors.
+        \n4. The sponsored children shall continue the sponsorship for at least 5 years after registration.
+        \n5. Sponsored children shall not be the children or grandchildren of Community Development Committee members
+        and GN staffs.
+        \n6. The sponsored children shall be not benefited from other NGOs.
+        \n7. There is no limit of the number of the sponsored children per family. However, if there are children who
+        are not able to benefit from the sponsorship program, because of the total number of sponsored children at
+        UCDP/RCDP, Good Neighbors shall restrict the number of sponsored children per family.
+        \n8. The staffs of Good Neighbors shall determine the applicants to benefit from Sponsorship according to
+        internal policy.
+        \n9. All sponsored children shall be treated equally in all aspects of sponsorship.
+        \n10. Services for sponsored children shall be by means of Education and Protection, Health, Water and
+        Sanitation.
+        \n11. All sponsored children shall be benefited by becoming 18 year old.
+    </string>
+
+    <string name="consent_3_title" translatable="false">- OBLIGATIONS FOR SPONSORED CHILD -</string>
+    <string name="consent_3_contents" translatable="false">
+        1. The following details shall be requested from Good Neighbors once every year: A. Photo and personal
+        information (through an interview), B. Thank You Letter for sponsor . Also, when it is requested, C. ordinary
+        reply for the sponsor’s letter/gift including photo, D. Counseling with a staff of GNI.
+    </string>
+
+    <string name="consent_4_title" translatable="false">- OBLIGATIONS BY PARENTS/GUARDIANS -</string>
+    <string name="consent_4_contents" translatable="false">
+        1. Services for sponsored children and family shall be nontransferable, and not used for other purpose or
+        person.
+        \n2. Parents/guardians shall receive services from Good Neighbors, and to be used for the sponsored child.
+        \n3. When the child cannot maintain the sponsorship, due to a move, death, etc., the parents/guardians certainly
+        notify Good Neighbors.
+    </string>
+
+    <string name="consent_5_title" translatable="false">- ACCEPTANCE -</string>
+    <string name="consent_5_contents" translatable="false">
+        Having read the conditions and obligations of sponsorship developed by Good Neighbors Sponsorship Program, I
+        hereby pledge to fully abide by them:
+    </string>
+
+
+
+    <string name="button_login" translatable="false">LOG IN</string>
+    <string name="button_submit">Submit</string>
+    <string name="button_device_registration">Device Registration</string>
+    <string name="button_check_password">Check password</string>
+    <string name="button_try_login">Try Login</string>
+    <string name="button_duplicate_check">Duplicate Check</string>
+    <string name="button_gift_list_confirm">Gift List Confirm</string>
+    <string name="button_modify">Modify</string>
+    <string name="button_register_drop_out">Register Drop-out</string>
+    <string name="button_register_new_cif">Register New CIF</string>
+    <string name="button_select_provided_date">Select Provided Date</string>
+    <string name="button_delete_contents" translatable="false">Delete Contents</string>
+    <string name="button_create_log_file" translatable="false">Create Log file</string>
+    <string name="button_make_sync_data" translatable="false">Make Sync Data</string>
+    <string name="button_sync_data" translatable="false">Sync Data</string>
+    <string name="button_generation" translatable="false">Generation</string>
+    <string name="button_upload_sync_data" translatable="false">Upload Sync Data</string>
+    <string name="button_download_sync_data" translatable="false">Download Sync Data</string>
+    <string name="button_upload" translatable="false">Upload</string>
+
+    <string name="label_userid" translatable="false">User ID</string>
+    <string name="label_password" translatable="false">Password</string>
+    <string name="label_language">Language</string>
+    <string name="label_notification">Notification</string>
+    <string name="label_total" translatable="false">Total</string>
+    <string name="label_caseinfo">Case Info</string>
+    <string name="label_child_information">Child information</string>
+    <string name="label_child_name">Child name</string>
+    <string name="label_first_name">First name</string>
+    <string name="label_middle">Middle name</string>
+    <string name="label_last">Last name</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_female">Female</string>
+    <string name="label_male">Male</string>
+    <string name="label_birthdate">Birth Date</string>
+    <string name="label_age">Age</string>
+    <string name="label_case">Case</string>
+    <string name="label_birth_certificate">birth certificate</string>
+    <string name="label_growth">Growth</string>
+    <string name="label_height">Height</string>
+    <string name="label_weight">Weight</string>
+    <string name="label_level_of_growth">Level of Growth</string>
+    <string name="label_home_address">Home address</string>
+    <string name="label_village">Village</string>
+    <string name="label_addr" translatable="false">Addr</string>
+    <string name="label_address">Address</string>
+    <string name="label_tel_number">Tel. number</string>
+    <string name="label_disability">Disability</string>
+    <string name="label_illness">Illness</string>
+    <string name="label_school">School</string>
+    <string name="label_school_type">School Type</string>
+    <string name="label_school_name">School name</string>
+    <string name="label_other">Other</string>
+    <string name="label_grade">Grade</string>
+    <string name="label_next">Next</string>
+    <string name="label_support_country">Support Country</string>
+    <string name="label_supply_plan">Supply Plan</string>
+    <string name="label_respondent_name">Respondent Name</string>
+    <string name="label_relationship_with_child">Relationship with Child</string>
+    <string name="label_interview_place">Interview Place</string>
+    <string name="label_family_information">Family information</string>
+    <string name="label_based_on_the_member_of_living_together">Based on the member of Living Together</string>
+    <string name="label_no_of_family_member">No. of Family Member</string>
+    <string name="label_father">Father</string>
+    <string name="label_mother">Mother</string>
+    <string name="label_main_guardian">Main Guardian</string>
+    <string name="label_main_income_provider">Main Income Provider/Monthly Income</string>
+    <string name="label_guardians_consent">Guardian\'s Consent</string>
+    <string name="label_no_of_sibling">No. of Sibling</string>
+    <string name="label_brother">Brother</string>
+    <string name="label_sister">Sister</string>
+    <string name="label_sibling_sponsorship" translatable="false">Sibling sponsorship</string>
+    <string name="label_sibling_sponsorship_status" translatable="false">Sibling sponsorship status</string>
+    <string name="label_search_child">Search child</string>
+    <string name="label_special_case">Special case</string>
+    <string name="label_special_case_type">Special case type</string>
+    <string name="label_personal_information">Personal information</string>
+    <string name="label_remark">Remark</string>
+    <string name="label_input_child_code_or_name">Input Child Code or Child Name</string>
+    <string name="label_others">Others</string>
+    <string name="label_interview_information">Interview information</string>
+    <string name="label_same_as_last_year">Same as last Year</string>
+    <string name="label_drop_out_plan">Drop-out Plan</string>
+    <string name="label_drop_out" translatable="false">Drop-out</string>
+    <string name="label_future_plan">Future Plan</string>
+    <string name="label_detail_plan">Detail Plan</string>
+    <string name="label_details_about_plan">Details about Plan</string>
+    <string name="label_reason">Reason</string>
+    <string name="label_details_about_reason">Details about Reason</string>
+    <string name="label_last_year">Last year</string>
+    <string name="label_substituted">Substituted</string>
+    <string name="label_acl_scan">ACL Scan</string>
+    <string name="label_acl_information">ACL Information</string>
+    <string name="label_type" translatable="false">Type</string>
+    <string name="label_substituted_writing">Substituted Writing</string>
+    <string name="label_more_condition">More Condition</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_ok" translatable="false">OK</string>
+    <string name="label_save">Save</string>
+    <string name="label_close">Close</string>
+    <string name="label_search">Search</string>
+    <string name="label_confirm">Confirm</string>
+    <string name="label_signature">Signature</string>
+    <string name="label_dropout" translatable="false">Drop out</string>
+    <string name="label_drop_out_reason">Drop-out reason</string>
+    <string name="label_how_far_place">How far is the place from CDP(by Car)</string>
+    <string name="label_name_of_place">Write the name of place</string>
+    <string name="label_cause_of_death">Cause of death</string>
+    <string name="label_kind_of_illness">Kind of Illness</string>
+    <string name="label_kind_of_disability">Kind of Disability</string>
+    <string name="label_child_working_as">The child working as ?</string>
+    <string name="label_registered_child">Registered child</string>
+    <string name="label_back_to_cif_list">Back to CIF list</string>
+    <string name="label_back_to_register">Back to register</string>
+    <string name="label_child_code">Child code</string>
+    <string name="label_name">Name</string>
+    <string name="label_sponsorship_information">Sponsorship Information</string>
+    <string name="label_sponsor_name">Sponsor Name</string>
+    <string name="label_gift_money">Gift Money</string>
+    <string name="label_sponsors_message">Sponsor\'s Message</string>
+    <string name="label_gift_list">Gift List</string>
+    <string name="label_child_reply_photo">Child Reply Photo</string>
+    <string name="label_enclosed_list">Enclosed List</string>
+    <string name="label_sponsors_letter">Sponsor\'s letter</string>
+    <string name="label_letter_reply_information">Letter Reply Information</string>
+    <string name="label_child_photo">Child photo</string>
+    <string name="label_reply_scan">Reply Scan</string>
+    <string name="label_reply_video">Reply Video</string>
+    <string name="label_continue_spon_reason">Continue Sponsorship Reason</string>
+    <string name="label_detail_reason">Detail Reason</string>
+    <string name="label_child_counseling_information">Child Counseling information</string>
+    <string name="label_no_of_visiting">No. of visiting</string>
+    <string name="label_interviewer_name">Interviewer Name</string>
+    <string name="label_content_of_counseling">Content of counseling</string>
+    <string name="label_opinion_of_manager">Opinion of manager</string>
+    <string name="label_information">Information</string>
+    <string name="label_counseling">Counseling</string>
+    <string name="label_detail_information">Detail information</string>
+    <string name="label_category">Category</string>
+    <string name="label_level_of_health">Level of health</string>
+    <string name="label_disabillity_illness">Disabillity/Illness</string>
+    <string name="label_school_information">School Information</string>
+    <string name="label_re_intake" translatable="false">Re-intake</string>
+    <string name="label_reason_for_reintake">Reason for re-intake</string>
+    <string name="label_photo_of_counseling">Photo of counseling</string>
+    <string name="label_service_provided_date">Service Provided Date</string>
+    <string name="label_service_record">Service Record</string>
+    <string name="label_recently_provided_date">Recently Provided Date</string>
+    <string name="label_sibling_information" translatable="false">Sibling information</string>
+    <string name="label_code">Code</string>
+    <string name="label_children">Children</string>
+    <string name="label_staff" translatable="false">Staff</string>
+    <string name="label_new">New</string>
+    <string name="label_service_status">Service status</string>
+    <string name="label_select_sync_method" translatable="false">Select Sync Method</string>
+    <string name="label_online_sync" translatable="false">Online Sync</string>
+    <string name="label_offline_sync" translatable="false">Offline Sync</string>
+    <string name="label_initialized_file_info">Initialized File Info</string>
+    <string name="label_complete">Complete</string>
+    <string name="label_export_complete">Export complete</string>
+    <string name="label_cif_approved_date">CIF approved date</string>
+    <string name="label_recent_report_date">Recent report date</string>
+    <string name="label_counseling_date">Counseling date</string>
+    <string name="label_unit_price">Unit Price</string>
+    <string name="label_total_price">Total Price</string>
+
+    <string name="label_special_marriage">Exposed early Marriage</string>
+    <string name="label_special_child_abuse">Child Abuse</string>
+    <string name="label_special_child_labor">Child Labor</string>
+    <string name="label_special_extream_proverty">Extreme Proverty</string>
+    <string name="label_special_expected_move">Expected Move</string>
+    <string name="label_special_guardian_absent">Guardian Absent</string>
+    <string name="label_special_media">Media</string>
+    <string name="label_special_ilness">Serious illness/Disability</string>
+
+
+
+    <!--<string name="message_wifi_disabled">Wifi is disabled. Please turn on!</string>-->
+    <string name="message_wifi_disabled">Network is disabled. Please turn on!</string>
+    <string name="message_device_not_registrated">Device Not Registered</string>
+    <string name="message_location_is_not_define" translatable="false">Location is not defined.</string>
+    <string name="message_exceeded_siblings_number">Exceeded siblings number</string>
+    <string name="message_inaccessible_storage">This device is inaccessible to storage space.</string>
+    <string name="message_dropout_age">Plan to dropout for age exceed (over 18)</string>
+    <string name="message_data_has_been_saved">Data has been saved.</string>
+    <string name="message_fetching_data" tools:ignore="TypographyEllipsis" translatable="false">Fetching data...</string>
+    <string name="message_downloading" tools:ignore="TypographyEllipsis" translatable="false">Downloading...</string>
+    <string name="message_processing" tools:ignore="TypographyEllipsis" translatable="false">Processing...</string>
+    <string name="message_reintake">This child will be given NEW child code in case of Re-intake.</string>
+    <string name="message_data_read_completed">Data read completed</string>
+    <string name="message_finished_initialization" translatable="false">Initialization finished</string>
+    <string name="message_the_file_deletion_is_complete">The file deletion is complete.</string>
+    <string name="message_there_was_an_error_deleting_the_file">There was an error deleting the file.</string>
+    <string name="message_update_complete">Update complete!</string>
+
+    <string name="message_confirm_logout">Are you sure you want to log out?</string>
+    <string name="message_confirm_leave_page">If you leave the page, All input data will be deleted. Do you really want to leave the page?</string>
+    <string name="message_confirm_delete_service_provided_date">Are you sure to delete selected Service Provided Date?</string>
+    <string name="message_confirm_delete_contents">Are you sure you want to delete the last content file?</string>
+
+    <string name="message_sync_offline_upload">
+        1. When Click "Generation" Button then Generated DataFile in Your App.
+        \nDirectory: Phone/Goolneighbors/export_offline
+        \n2. Connect App to PC with Data Cable
+        \n3. Copy the "Data File" to the Directory in PC.
+        \n- Directory: MyDocument/Goodneighbors/export
+        \n4. When you copied the files, Upload Datafile with Backoffice(Mychild WEB).
+        \n5. If you Uploaded the Data, You Should Confirm the Data Completely Uploaded through the Backoffice(Mychild WEB).
+    </string>
+    <string name="message_sync_offline_sync">
+        1. When you want to sync Data, Download Sync Datafile in Backoffice(Mychild WEB).
+        \n2. Connect App to PC with Data Cable
+        \n3. Copy the "Data File" to the Directory in Phone
+        \n- Directory: Phone/Goodneighbors/import
+        \n4. When Click "Ready" Button then Sync DataFile in Your App.
+    </string>
+    <string name="message_signin_retype_password">Please re-type your password</string>
+    <string name="message_signin_retype_userid">Please re-type your user ID</string>
+    <string name="message_signin_require_userid">User ID is required</string>
+    <string name="message_signin_require_password">Password is required</string>
+    <string name="message_signin_no_match_user">
+        There is no matched user.
+        Please ask to make a user ID to HO
+    </string>
+    <string name="message_signin_forgot_account">
+        If you forgot your account?
+        Click Here
+    </string>
+
+
+    <string name="message_require_fields">Please check the required fields.</string>
+    <string name="message_require_case">Please re-check the required Special Case Type fields</string>
+    <string name="message_require_items_selected">No items selected.</string>
+    Permitted Range
+    <string name="message_validate_minimum_age">The minimum value of input age is 2</string>
+    <string name="message_validate_birthdate">Only 2~13 years old children data can be input. Please input data again.</string>
+    <string name="message_validate_height">It\'s not Permitted Range (50~220 available)</string>
+    <string name="message_validate_weight">It\'s not Permitted Range (5~120 available)</string>
+    <string name="message_validate_school_type">It’s not Permitted Range</string>
+    <string name="message_validate_child_is_not_living_with_parents">Child is not living with parents. Please check who is Guardian.</string>
+    <string name="message_validate_remark_interviewee">Please, write the  who is the interviewee in the remark.</string>
+    <string name="message_validate_remark_illness">Please, give the detail of illness in the remark.</string>
+    <string name="message_validate_range_age_2_13">Only 2~13 years old children data can be input. Please input data again.</string>
+    <string name="message_validate_under_school_age">Child is old enough to attend school. Please recheck.</string>
+    <string name="message_validate_school_type_others">Please recheck, other school type name.</string>
+    <string name="message_validate_not_attending_school">Please recheck, not attending school reason.</string>
+    <string name="message_validate_range_1_8">It\'s not Permitted Range (1~8 available)</string>
+    <string name="message_validate_range_1_12">It\'s not Permitted Range (1~12 available)</string>
+    <string name="message_validate_range_1_18">It\'s not Permitted Range (1~18 available)</string>
+    <string name="message_validate_range_30_2000">It\’s not Permitted Range (30~2000 available)</string>
+    <string name="message_validate_range_nursery_13">It\'s not Permitted Range(Nursery : under 13 age)</string>
+    <string name="message_validate_range_primary_13">It\'s not Permitted Range(Primary : under 13 age)</string>
+    <string name="message_validate_range_over_8">It\'s not Permitted Range( Secondary or High School : over 8 age)</string>
+    <string name="message_validate_length_2000">Input length exceeded.(within 2000 characters)</string>
+    <string name="message_validate_father_is_not_living">Father is not living with the child. Please check Main Guardian again.</string>
+    <string name="message_validate_mother_is_not_living">Mother is not living with the child. Please check Main Guardian again.</string>
+    <string name="message_validate_registered_sibling">It\'s a registered sibling</string>
+    <string name="message_validate_gender_is_differ">Gender is differ from Last year. Is the gender information correct?</string>
+    <string name="message_validate_birthdate_is_differ">Birthdate is differ from Last year. Is the Birthdate information correct?</string>
+    <string name="message_validate_height_decreased">The child\'s height decreased or increased more than 10cm. Or height is same as last year. Please check reason</string>
+    <string name="message_validate_weight_decreased">The child\'s weight decreased more than 3kg or increased more than 10kg. Or weight is same as last year. Please check reason.</string>
+    <string name="message_validate_dropout_age_limit">The child is supposed to be dropped out this December due to "Exceeded Age Limit".
+        Please select YES or NO, and mark the reason.</string>
+    <string name="message_validate_dropout_yes_or_no">If YES, the child will drop-out this December.
+        If NO, the sponsorship will continue next year.</string>
+    <string name="message_validate_acl_substituted">Last year, ACL was written by sponsored-child. Substitute Writing information is different from Last year. Please make confirmation.</string>
+    <string name="message_validate_acl_relationship">According to recent report, the child is not living with the person who you just select as ghostwriter. Please check and write in Remark.</string>
+    <string name="message_validate_acl_reason">Child is old enough to write ACL by her/himself. Please check the reason again. If it is correct, explain more detail in Remark.</string>
+    <string name="message_validate_letter_substitute_writing">Recent Reply was written by sponsored-child. Substitute Writing information is different from Last year. Please make confirmation.</string>
+    <string name="message_validate_letter_select_ghostwriter">According to recent report, the child is not living with the person who you just select as ghostwriter. Please check and write in Remark.</string>
+    <string name="message_validate_letter_check_reason">Child is old enough to write ACL by her/himself. Please check the reason again. If it is correct, explain more detail in Remark.</string>
+    <string name="message_validate_select_provided_date">Please select provided date</string>
+    <string name="message_validate_exceeded_number">Exceeded number</string>
+    <string name="message_validate_dropplanOnlyY">You can select only "Y"</string>
+
+
+    <string name="message_info_online_sync">If you Sync Data with Wi-Fi then Select \'Online Sync\'</string>
+    <string name="message_info_offline_sync">If you Sync Data with Data Cable then Select \'Offline Sync\'</string>
+    <string name="message_info_make_sync_data">If you want to Upload Data File to Web, Select \'Make Sync Data\'</string>
+    <string name="message_info_gen_sync_data">If you want to Sync Data with Downloaded file from Web, Select \'Sync Data\'</string>
+    <string name="message_info_contents_delete_info">If you click \'Delete Contents\' button, device will delete contents files in your device.</string>
+    <string name="message_info_upload_sync_data">If you want to Upload Data, Select \'Upload Sync Data\'</string>
+    <string name="message_info_download_sync_data">If you want to Download Data, Select \'Download Sync Data\'</string>
+    <string name="message_info_how_to_upload_data" translatable="false">How to Upload Data</string>
+
+    <string name="message_info_how_to_offline_sync" translatable="false">How to Offline Sync</string>
+
+    <string name="message_info_acl_type_change">last ACL was C type, please check one more time.</string>
+
+
+    <string name="message_return_remark_ihq">IHQ Return Remark</string>
+    <string name="message_return_remark_ho">HO Return Remark</string>
+
+    <string name="message_error_file_not_found">File Not Found!</string>
+    <string name="message_error_response_not_found">Response is not found!</string>
+</resources>

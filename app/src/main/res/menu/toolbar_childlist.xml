@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/action_place"
+            android:icon="@drawable/ic_toolbar_place"
+            android:title="Map"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/childlist_toolbar_qrcode"
+            android:icon="@drawable/ic_toolbar_qrcode2"
+            android:title="QRCODE"
+            app:showAsAction="ifRoom" />
+
+    <item
+            android:id="@+id/childlist_toolbar_search"
+            android:icon="@drawable/ic_toolbar_search"
+            android:title="Search"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            app:showAsAction="ifRoom|collapseActionView" />
+
+</menu>

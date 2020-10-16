@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--<external-path name="camera_images" path="/Pictures/Goodneighbors" />-->
+    <!--<external-path name="camera_images" path="Android/data/kr.goodneighbors.cms/files/Pictures" />-->
+    <external-path name="camera_images" path="GoodNeighbors/Pictures" />
+    <!--<files-path name="files" path="/" />-->
+    <external-path name="images" path="."/>
+</paths>

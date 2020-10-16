@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_submit">Soumettre</string>
+    <string name="button_device_registration">Enregistrement de l\'appareil</string>
+    <string name="button_check_password">Vérifier le mot de passe</string>
+    <string name="button_try_login">Essayez de vous connecter</string>
+    <string name="button_duplicate_check">Contrôle en double</string>
+    <string name="button_gift_list_confirm">Liste de cadeaux Confirmer</string>
+    <string name="button_modify">Modifier</string>
+    <string name="button_register_drop_out">Registre Drop-out</string>
+    <string name="button_register_new_cif">Registre New CIF</string>
+
+    message_signin_require_password
+    <string name="label_language">La langue</string>
+
+
+    <string name="label_child_name">Nom d\'enfant</string>
+    <string name="label_gender">Sexe</string>
+    <string name="label_female">Femelle</string>
+    <string name="label_male">Mâle</string>
+    <string name="label_birthdate">Date de naissance</string>
+    <string name="label_age">Âge</string>
+    <string name="label_case">Cas</string>
+    <string name="label_birth_certificate">certificat de naissance</string>
+    <string name="label_first_name">Prénom</string>
+    <string name="label_middle">Deuxième nom</string>
+    <string name="label_last">Nom de famille</string>
+    <string name="label_height">Hauteur</string>
+    <string name="label_weight">Poids</string>
+    <string name="label_growth">Croissance</string>
+    <string name="label_level_of_growth">Niveau de croissance</string>
+    <string name="label_home_address">Adresse du domicile</string>
+    <string name="label_village">Village</string>
+    <string name="label_address">Adresse</string>
+    <string name="label_tel_number">Tél. nombre</string>
+    <string name="label_disability">Invalidité</string>
+    <string name="label_illness">Maladie</string>
+    <string name="label_school">École</string>
+    <string name="label_school_type">Type d\'école</string>
+    <string name="label_school_name">Nom d\'école</string>
+    <string name="label_other">Autre</string>
+    <string name="label_grade">Qualité</string>
+    <string name="label_next">Suivant</string>
+    <string name="label_support_country">Pays donneur</string>
+    <string name="label_supply_plan">Plan d\'approvisionnement</string>
+    <string name="label_respondent_name">Nom du répondant</string>
+    <string name="label_relationship_with_child">Relation avec l\'enfant</string>
+    <string name="label_interview_place">Lieu d\'interview</string>
+    <string name="label_family_information">Informations de famille</string>
+    <string name="label_based_on_the_member_of_living_together">Basé sur le membre de Living Together</string>
+    <string name="label_no_of_family_member">Nombre de membres de la famille</string>
+    <string name="label_father">Père</string>
+    <string name="label_mother">Mère</string>
+    <string name="label_main_guardian">Tuteur principal</string>
+    <string name="label_main_income_provider">Principal fournisseur de revenu/Revenu mensuel</string>
+    <string name="label_guardians_consent">Consentement du gardien</string>
+    <string name="label_no_of_sibling">Nombre de frères et soeurs</string>
+    <string name="label_brother">Frère</string>
+    <string name="label_sister">Soeur</string>
+    <string name="label_search_child">cherch d\'enfant</string>
+    <string name="label_special_case_type">Type de cas spécial</string>
+    <string name="label_special_case">Cas spécial</string>
+    <string name="label_personal_information">Informations personnelles</string>
+    <string name="label_category">Catégorie</string>
+    <string name="label_child_code">Code enfant</string>
+    <string name="label_code">Code</string>
+    <string name="label_disabillity_illness">Invalidité/maladie</string>
+    <string name="label_drop_out_reason">Drop-out Raison</string>
+    <string name="label_enclosed_list">Liste jointe</string>
+    <string name="label_future_plan">Plan Futur</string>
+    <string name="label_gift_list">Liste de cadeaux</string>
+    <string name="label_gift_money">Argent en cadeau</string>
+    <string name="label_how_far_place">Quelle est la place de CDP (en voiture)</string>
+    <string name="label_information">Informations</string>
+    <string name="label_initialized_file_info">Informations de fichier initialisées</string>
+    <string name="label_input_child_code_or_name">saisir le code enfant</string>
+    <string name="label_interview_information">Informations sur l\'entrevue</string>
+    <string name="label_interviewer_name">Nom de l\'intervieweur</string>
+    <string name="label_kind_of_disability">Type d\'invalidité</string>
+    <string name="label_kind_of_illness">Type de maladie</string>
+    <string name="label_last_year">L\'année dernière</string>
+    <string name="label_letter_reply_information">Lettre d\'information de réponse</string>
+    <string name="label_level_of_health">Niveau de santé</string>
+    <string name="label_more_condition">Plus de condition</string>
+    <string name="label_name">Nom</string>
+    <string name="label_name_of_place">Ecrire le nom de l\'endroit</string>
+    <string name="label_new">Nouveau</string>
+    <string name="label_no_of_visiting">Nombre de visite</string>
+    <string name="label_notification">Notification</string>
+    <string name="label_opinion_of_manager">Opinion du manager</string>
+    <string name="label_acl_information">ACL Information</string>
+    <string name="label_acl_scan">ACL Balayage</string>
+    <string name="label_back_to_cif_list">Retour à la liste CIF</string>
+    <string name="label_back_to_register">Retour à l\'inscription</string>
+    <string name="label_cancel">Annuler</string>
+    <string name="label_caseinfo">Info de cas</string>
+    <string name="label_cause_of_death">Cause de décès</string>
+    <string name="label_child_counseling_information">Informations sur le conseil aux enfants</string>
+    <string name="label_child_information">Informations sur l\'enfant</string>
+    <string name="label_child_photo">Photo d\'enfant</string>
+    <string name="label_child_reply_photo">Réponse Photo d\'enfant</string>
+    <string name="label_child_working_as">L\'enfant qui travaille comme ?</string>
+    <string name="label_children">Les enfants</string>
+    <string name="label_close">Fermer</string>
+    <string name="label_complete">Achevé</string>
+    <string name="label_others">Autres</string>
+    <string name="label_confirm">Confirmer</string>
+    <string name="label_content_of_counseling">Contenu du conseil</string>
+    <string name="label_continue_spon_reason">Continuer le motif du parrainage</string>
+    <string name="label_counseling">Conseils</string>
+    <string name="label_detail_information">Informations détaillées</string>
+    <string name="label_detail_plan">Plan de détail</string>
+    <string name="label_detail_reason">Raison du détail</string>
+    <string name="label_details_about_plan">Détails sur le plan</string>
+    <string name="label_details_about_reason">Détails sur Reason</string>
+    <string name="label_drop_out_plan">Drop-out Plan</string>
+    <string name="label_export_complete">Export terminé</string>
+    <string name="label_photo_of_counseling">Photo de conseil</string>
+    <string name="label_reason">Raison</string>
+    <string name="label_reason_for_reintake">Raison de re-intake</string>
+    <string name="label_recently_provided_date">"Date récemment fournie "</string>
+    <string name="label_registered_child">Enfant inscrit</string>
+    <string name="label_remark">Remarque</string>
+    <string name="label_reply_scan">Réponse de numérisation</string>
+    <string name="label_reply_video">Répondre à la vidéo</string>
+    <string name="label_same_as_last_year">Identique à l\'année dernière</string>
+    <string name="label_save">sauvegarder</string>
+    <string name="label_school_information">"Informations sur l'école "</string>
+    <string name="label_search">Chercher</string>
+    <string name="label_service_provided_date">"Date du service fourni "</string>
+    <string name="label_service_record">Enregistrement de service</string>
+    <string name="label_service_status">État du service</string>
+    <string name="label_signature">La signature</string>
+    <string name="label_sponsor_name">Nom du sponsor</string>
+    <string name="label_sponsors_letter">Lettre du sponsor</string>
+    <string name="label_sponsors_message">Message du sponsor</string>
+    <string name="label_sponsorship_information">Information sur les commandites</string>
+    <string name="label_substituted">Substitué</string>
+    <string name="label_substituted_writing">Écriture substituée</string>
+    <string name="message_confirm_delete_contents">Êtes-vous sûr de vouloir supprimer le dernier fichier de contenu?</string>
+    <string name="message_confirm_delete_service_provided_date">Êtes-vous certain de supprimer la date de prestation de service sélectionnée?</string>
+    <string name="message_confirm_leave_page">Si vous quittez la page, toutes les données saisies seront supprimées. Voulez-vous vraiment quitter la page?</string>
+    <string name="message_confirm_logout">Êtes-vous sûr de vouloir vous déconnecter?</string>
+    <string name="message_data_has_been_saved">Les données ont été enregistrées.</string>
+    <string name="message_data_read_completed">Données lues terminées</string>
+    <string name="message_device_not_registrated">Appareil non enregistré</string>
+    <string name="message_dropout_age">Prévoyez d\'abandonner l\'âge de plus de 18 ans</string>
+    <string name="message_error_file_not_found">Fichier non trouvé!</string>
+    <string name="message_error_response_not_found">La réponse n\'est pas trouvée!</string>
+    <string name="message_exceeded_siblings_number">Nombre de frères et sœurs dépassé</string>
+    <string name="message_inaccessible_storage">Cet appareil est inaccessible à l\'espace de stockage.</string>
+    <string name="message_info_contents_delete_info">Si vous cliquez sur le bouton \'Delete Contents\', l\'appareil supprimera les fichiers de contenu de votre appareil.</string>
+    <string name="message_info_download_sync_data">Si vous souhaitez télécharger des données, sélectionnez \'Download Sync Data\'.</string>
+    <string name="message_info_gen_sync_data">Si vous souhaitez synchroniser les données avec le fichier téléchargé depuis le Web, sélectionnez \'Sync Data\'</string>
+    <string name="message_info_make_sync_data">Si vous souhaitez télécharger un fichier de données sur le Web, sélectionnez \'Make Sync Data\'</string>
+    <string name="message_info_offline_sync">Si vous synchronisez des données avec un câble de données, sélectionnez \'Offline Sync\'.</string>
+    <string name="message_info_online_sync">Si vous synchronisez des données avec le Wi-Fi, sélectionnez \'Online Sync\'</string>
+    <string name="message_info_upload_sync_data">Si vous souhaitez télécharger des données, sélectionnez \'Upload Sync Data\'</string>
+    <string name="message_reintake">Un nouveau code enfant sera attribué à cet enfant en cas de réadmission.</string>
+    <string name="message_require_case">Veuillez revérifier les champs obligatoires de type de cas spécial</string>
+    <string name="message_require_fields">S\'il vous plaît vérifier les champs obligatoires.</string>
+    <string name="message_require_items_selected">Aucun élément sélectionné.</string>
+    <string name="message_return_remark_ho">HO retour Remarque</string>
+    <string name="message_return_remark_ihq">IHQ Retour Remarque</string>
+    <string name="message_signin_require_userid">L\'identifiant est requis</string>
+    <string name="message_signin_forgot_account">
+        Si vous avez oublié votre compte?
+        Cliquez ici
+    </string>
+    <string name="message_signin_no_match_user">
+        Il n\'y a pas d\'utilisateur correspondant.
+        S\'il vous plaît demander à rendre un ID utilisateur à HO
+    </string>
+    <string name="message_signin_require_password">Mot de passe requis</string>
+    <string name="message_signin_retype_password">Veuillez ressaisir votre mot de passe</string>
+    <string name="message_signin_retype_userid">Veuillez ressaisir votre identifiant</string>
+    <string name="message_sync_offline_sync">
+        1. Lorsque vous souhaitez synchroniser des données, téléchargez Sync Datafile dans Backoffice (Mychild WEB).
+        \n2. Connectez l\'appli au PC avec un câble de données
+        \n3. Copiez le "fichier de données" dans le répertoire du téléphone.
+        \n- Annuaire: Phone/Goodneighbors/import
+        \n4. Cliquez ensuite sur le bouton "Ready", puis synchronisez DataFile dans votre application.
+    </string>
+    <string name="message_sync_offline_upload">
+        1. Cliquez sur le bouton "Generation", puis sur DataFile généré dans votre application.
+        \Répertoire: Phone/Goolneighbors/export_offline
+        \n2. Connectez l\'appli au PC avec un câble de données
+        \n3. Copiez le "fichier de données" dans le répertoire du PC.
+        \n- Répertoire: MyDocument/Goodneighbors/export
+        \n4. Lorsque vous avez copié les fichiers, téléchargez le fichier de données avec Backoffice (Mychild WEB).
+        \n5. Si vous avez téléchargé les données, vous devez confirmer les données complètement téléchargées via le Backoffice (Mychild WEB).
+    </string>
+    <string name="message_the_file_deletion_is_complete">La suppression du fichier est terminée.</string>
+    <string name="message_there_was_an_error_deleting_the_file">Une erreur s\'est produite lors de la suppression du fichier.</string>
+    <string name="message_update_complete">Mise à jour terminée!</string>
+    <string name="message_validate_acl_reason">L\'enfant est assez vieux pour écrire ACL par lui-même. S\'il vous plaît vérifier la raison à nouveau. S\'il est correct, expliquez plus en détail dans Remarque.</string>
+    <string name="message_validate_acl_relationship">Selon un rapport récent, l\'enfant ne vit pas avec la personne que vous venez de sélectionner comme écrivain public. S\'il vous plaît vérifier et écrire dans Remarque.</string>
+    <string name="message_validate_acl_substituted">L\'année dernière, ACL a été écrit par parrainé-enfant. Les informations sur l\'écriture de substitution sont différentes de celles de l\'année dernière. S\'il vous plaît faire une confirmation.</string>
+    <string name="message_validate_birthdate">Seules les données relatives aux enfants de 2 à 13 ans peuvent être saisies. Veuillez saisir les données à nouveau.</string>
+    <string name="message_validate_birthdate_is_differ">La date de naissance est différente de l\'année dernière. Les informations sur la date de naissance sont-elles correctes?</string>
+    <string name="message_validate_child_is_not_living_with_parents">L\'enfant ne vit pas avec ses parents. S\'il vous plaît vérifier qui est le gardien.</string>
+    <string name="message_validate_dropout_age_limit">L\'enfant est supposé être abandonné en décembre en raison de son âge dépassé.
+        Veuillez sélectionner OUI ou NON et indiquez la raison.</string>
+    <string name="message_validate_dropout_yes_or_no">Si la réponse est OUI, l\'enfant abandonnera ses études en décembre.
+        Si non, le parrainage se poursuivra l\'année prochaine.</string>
+    <string name="message_validate_exceeded_number">Nombre dépassé</string>
+    <string name="message_validate_dropplanOnlyY">Vous ne pouvez sélectionner que "Y"</string>
+    <string name="message_validate_father_is_not_living">Le père ne vit pas avec l\'enfant. Veuillez vérifier à nouveau Main Guardian.</string>
+    <string name="message_validate_gender_is_differ">Le sexe est différent de l\'année dernière. Les informations de genre sont-elles correctes?</string>
+    <string name="message_validate_height">Ce n\'est pas une plage autorisée (50 ~ 220 disponibles)</string>
+    <string name="message_validate_length_2000">Longueur d\'entrée dépassée (moins de 2000 caractères)</string>
+    <string name="message_validate_letter_check_reason">L\'enfant est assez vieux pour écrire ACL par lui-même. S\'il vous plaît vérifier la raison à nouveau. S\'il est correct, expliquez plus en détail dans Remarque.</string>
+    <string name="message_validate_height_decreased">La taille de l\'enfant a diminué ou augmenté de plus de 10 cm. Ou la hauteur est la même que l\'année dernière. S\'il vous plaît vérifier la raison.</string>
+    <string name="message_validate_letter_select_ghostwriter">Selon un rapport récent, l\'enfant ne vit pas avec la personne que vous venez de sélectionner comme écrivain public. S\'il vous plaît vérifier et écrire dans Remarque.</string>
+    <string name="message_validate_letter_substitute_writing">Recent Reply a été écrit par sponsor-child. Les informations sur l\'écriture de substitution sont différentes de celles de l\'année dernière. S\'il vous plaît faire une confirmation.</string>
+    <string name="message_validate_minimum_age">La valeur minimale de l\'âge d\'entrée est 2.</string>
+    <string name="message_validate_mother_is_not_living">La mère ne vit pas avec l\'enfant. Veuillez vérifier à nouveau Main Guardian.</string>
+    <string name="message_validate_range_1_12">Ce n\'est pas une plage autorisée (1 ~ 12 disponibles)</string>
+    <string name="message_validate_range_1_18">Ce n\'est pas une plage autorisée (1 ~ 18 disponibles)</string>
+    <string name="message_validate_range_1_8">Ce n\'est pas autorisé gamme (1 ~ 8 disponible)</string>
+    <string name="message_validate_range_30_2000">Ce n\'est pas une plage autorisée (30 ~ 2000 disponibles)</string>
+    <string name="message_validate_range_age_2_13">Seules les données relatives aux enfants de 2 à 13 ans peuvent être saisies. Veuillez saisir les données à nouveau.</string>
+    <string name="message_validate_under_school_age">L\'enfant est en âge d\'aller à l\'école. Revérifiez s\'il vous plait.</string>
+    <string name="message_validate_school_type_others">Veuillez revérifier le nom de l’autre type d’école.</string>
+    <string name="message_validate_not_attending_school">Veuillez revérifier, ne fréquentant pas la raison de l\'école.</string>
+    <string name="message_validate_range_nursery_13">Ce n\'est pas une aire autorisée (Garderie: moins de 13 ans)</string>
+    <string name="message_validate_range_over_8">Ce n\'est pas autorisé Range (Secondaire ou secondaire: plus de 8 ans)</string>
+    <string name="message_validate_range_primary_13">Ce n\'est pas autorisé Range (primaire: moins de 13 ans)</string>
+    <string name="message_validate_registered_sibling">C\'est un frère inscrit</string>
+    <string name="message_validate_remark_illness">S\'il vous plaît, donnez le détail de la maladie dans la remarque.</string>
+    <string name="message_validate_remark_interviewee">S\'il vous plaît, écrivez le qui est l\'interviewé dans la remarque.</string>
+    <string name="message_validate_school_type">Ce n’est pas autorisé</string>
+    <string name="message_validate_select_provided_date">Veuillez sélectionner la date fournie</string>
+    <string name="message_validate_weight">Ce n\'est pas une plage autorisée (5 ~ 120 disponibles)</string>
+    <string name="message_validate_weight_decreased">Le poids de l\'enfant a diminué de plus de 3 kg ou augmenté de plus de 10 kg. Ou le poids est le même que l\'année dernière. S\'il vous plaît vérifier la raison.</string>
+    <string name="message_wifi_disabled">Le réseau est désactivé. S\'il vous plaît allumer!</string>
+    <string name="button_select_provided_date">Sélectionnez la date fournie</string>
+    <string name="label_recent_report_date">Date du rapport récent</string>
+    <string name="label_counseling_date">Date de consultation</string>
+    <string name="label_cif_approved_date">Date approuvée CIF</string>
+    <string name="label_unit_price">Prix unitaire</string>
+    <string name="label_total_price">Prix total</string>
+    <string name="label_special_child_abuse">Abus sur mineur</string>
+    <string name="label_special_child_labor">Travail des enfants</string>
+    <string name="label_special_extream_proverty">Pauvreté extrême</string>
+    <string name="label_special_guardian_absent">Absence du tuteur</string>
+    <string name="label_special_ilness">Maladie grave / invalidité</string>
+    <string name="label_special_marriage">Exposé mariage précoce</string>
+    <string name="label_special_expected_move">Déplacement prévu</string>
+    <string name="label_special_media">Médias</string>
+    <string name="message_info_acl_type_change" translatable="false">la dernière ACL était de type C, vérifiez encore une fois.</string>
+</resources>

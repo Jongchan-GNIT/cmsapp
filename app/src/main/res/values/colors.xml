@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#89a230</color>
+    <color name="colorPrimaryDark">#566a22</color>
+    <color name="colorAccent">#f16523</color>
+
+    <color name="colorError">#b53534</color>
+    <color name="colorDefault">#566a22</color>
+
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="colorGridTitle">#eaede4</color>
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorGray">#aaaaaa</color>
+    <color name="colorLightGray">#f3f4ee</color>
+    <color name="colorYellow">#fffe87</color>
+    <color name="color888888">#888888</color>
+    <color name="colorFFFFD9">#ffffd9</color>
+
+    <color name="colorBgAccent">#b53534</color>
+    <color name="colorBgGray">#847f7b</color>
+    <color name="colorBgLiteGray">#eaede4</color>
+    <color name="colorNoticeBackground">#f5f6f0</color>
+
+    <color name="colorButtonGray">#f4f4f4</color>
+
+    <color name="colorTabLine">#8aa230</color>
+    <color name="colorLine">#a1b559</color>
+
+    <color name="colorBrown">#58473f</color>
+    <color name="colorReturnBackground">#ffffd9</color>
+    <color name="colorSplitLine">#daddcf</color>
+    <color name="colorBlue">#467CDA</color>
+
+    <color name="colorMenuSplitLine">#deded6</color>
+    <color name="colorMenuBottomSplitLine">#566a23</color>
+</resources>
+

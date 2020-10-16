@@ -1,0 +1,122 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('MM-dd-yyyy')
+    return formattedDate
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "kr.goodneighbors.cms"
+        minSdkVersion 26
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0.6: "+getDate()
+        build
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation project(':scanlibrary')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "com.android.support:appcompat-v7:$GOOGLE_SUPPORT"
+    implementation "com.android.support:design:$GOOGLE_SUPPORT"
+
+    implementation "com.android.support:support-v4:$GOOGLE_SUPPORT"
+    implementation "com.android.support:recyclerview-v7:$GOOGLE_SUPPORT"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    /*Architecture components*/
+    implementation "android.arch.lifecycle:runtime:$AAC"
+    implementation "android.arch.lifecycle:extensions:$AAC"
+    implementation "android.arch.lifecycle:common-java8:$AAC"
+    kapt "android.arch.lifecycle:compiler:$AAC"
+
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+
+    /*Room*/
+    implementation "android.arch.persistence.room:runtime:$AAC"
+//    annotationProcessor "android.arch.persistence.room:compiler:$AAC"
+    kapt "android.arch.persistence.room:compiler:$AAC"
+
+    /*Dagger*/
+    implementation "com.google.dagger:dagger:$DAGGER"
+    kapt "com.google.dagger:dagger-compiler:$DAGGER"
+    implementation "com.google.dagger:dagger-android:$DAGGER"
+    implementation "com.google.dagger:dagger-android-support:$DAGGER"
+    kapt "com.google.dagger:dagger-android-processor:$DAGGER"
+
+    /*Networking*/
+    implementation "com.squareup.okhttp3:okhttp:$OKHTTP"
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT"
+
+//    kapt "com.android.databinding:compiler:$DATABINDING"
+
+    /*Debugging*/
+    /*Stetho*/
+    implementation "com.facebook.stetho:stetho:$STETHO"
+    implementation "com.facebook.stetho:stetho-okhttp3:$STETHO"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    /*External*/
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.7.+'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.7.+'
+    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.7.+@aar') { transitive = true }
+    implementation('com.amazonaws:aws-android-sdk-auth-userpools:2.7.+@aar') { transitive = true }
+
+    implementation "ch.acra:acra-mail:$ACRA"
+
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'com.github.tony19:logback-android:1.3.0-2'
+
+    // Anko Commons
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+
+    // Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25:$anko_version" // sdk15, sdk19, sdk21, sdk23 are also available
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    implementation "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
+    implementation "org.jetbrains.anko:anko-constraint-layout:$anko_version"
+
+    // Coroutine listeners for Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
+
+    implementation "me.dm7.barcodescanner:zxing:1.9"
+    implementation "net.lingala.zip4j:zip4j:1.2.4"
+}
