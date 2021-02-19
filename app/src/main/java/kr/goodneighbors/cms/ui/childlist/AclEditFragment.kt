@@ -175,7 +175,6 @@ class AclEditFragment : Fragment() {
 
         val contentsRootDir = File("$sdMain/${Constants.DIR_HOME}/${Constants.DIR_CONTENTS}")
 
-
         viewModel.getAclEditViewItem().observe(this, Observer { aclEditViewItem ->
             logger.debug("onCreate : viewModel.getAclEditViewItem() = $aclEditViewItem")
             aclEditViewItem?.apply {
