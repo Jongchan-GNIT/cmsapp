@@ -290,6 +290,7 @@ class ReportRepository @Inject constructor(
 
         commonDao.findAllSupplyPlanDnctr().forEach { dnctr_cd ->
             val items = ArrayList<SpinnerOption>()
+            items.addAll(generateSupplyPlanItem(dnctr_cd, ctrCd, prjCd, currentYear + 1))
             items.addAll(generateSupplyPlanItem(dnctr_cd, ctrCd, prjCd, currentYear))
             items.addAll(generateSupplyPlanItem(dnctr_cd, ctrCd, prjCd, currentYear - 1))
 

@@ -137,6 +137,7 @@ class ProvidedServiceEditDialog : DialogFragment() {
                 val datePickerDialog = DatePickerDialog(activity,
                         DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                             selectedItem!!.srvc.PRVD_DT = "$year${(monthOfYear + 1).toString().padStart(2, '0')}${dayOfMonth.toString().padStart(2, '0')}"
+                            selectedItem!!.srvc.APP_MODIFY_DATE = Date().time
                             selectedItem!!.isEdited = true
                             selectedItem!!.isSelected = false
                             selectedItem = null
@@ -153,6 +154,7 @@ class ProvidedServiceEditDialog : DialogFragment() {
                 alert(R.string.message_confirm_delete_service_provided_date) {
                     yesButton {
                         selectedItem!!.srvc.DEL_YN = "Y"
+                        selectedItem!!.srvc.APP_MODIFY_DATE = Date().time
                         selectedItem!!.isSelected = false
                         selectedItem!!.isDeleted = true
                         selectedItem = null

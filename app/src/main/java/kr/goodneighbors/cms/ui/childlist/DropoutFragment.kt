@@ -212,8 +212,8 @@ class DropoutFragment : BaseActivityFragment() {
                 logger.debug("onCreateView : continueReasonSpinner.onItemSelected : ${ui.dropoutReasonSpinner.getValue()}")
 
                 when (ui.dropoutReasonSpinner.getValue()) {
-                    // 9	이사
-                    "1", "9" -> {
+                    // 9 이사 or 26 상급학교 진학
+                    "1", "9", "26" -> {
                         ui.moveLayout.visibility = View.VISIBLE
                         ui.deathReasonLayout.visibility = View.GONE
                         ui.employmentLayout.visibility = View.GONE
@@ -346,7 +346,7 @@ class DropoutFragment : BaseActivityFragment() {
             isValid = false
         }
 
-        // 이사
+        // 이사 or 상급학교 진학
         if (ui.moveLayout.visibility == View.VISIBLE) {
             if (distance.isNullOrBlank()) {
                 isValid = false
@@ -478,7 +478,7 @@ class DropoutFragment : BaseActivityFragment() {
                         }.lparams(width = matchParent, height = dimen(R.dimen.px70))
                         dropoutReasonSpinner = spinner { }
 
-                        // 이사
+                        // 이사 or 상급학교 진학
                         moveLayout = verticalLayout {
                             visibility = View.GONE
 
