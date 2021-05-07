@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.persistence.db.SimpleSQLiteQuery
 import android.content.SharedPreferences
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import kr.goodneighbors.cms.common.GNLocaleManager
 import kr.goodneighbors.cms.extensions.toDateFormat
@@ -47,6 +48,7 @@ import kr.goodneighbors.cms.service.model.ReportListItem
 import kr.goodneighbors.cms.service.model.SiblingInformationItem
 import kr.goodneighbors.cms.service.model.SpinnerOption
 import kr.goodneighbors.cms.service.model.VillageLocation
+import org.jetbrains.anko.support.v4.toast
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.math.RoundingMode
@@ -290,7 +292,6 @@ class ReportRepository @Inject constructor(
 
         commonDao.findAllSupplyPlanDnctr().forEach { dnctr_cd ->
             val items = ArrayList<SpinnerOption>()
-            items.addAll(generateSupplyPlanItem(dnctr_cd, ctrCd, prjCd, currentYear + 1))
             items.addAll(generateSupplyPlanItem(dnctr_cd, ctrCd, prjCd, currentYear))
             items.addAll(generateSupplyPlanItem(dnctr_cd, ctrCd, prjCd, currentYear - 1))
 
@@ -870,8 +871,8 @@ class ReportRepository @Inject constructor(
         aclReports = MutableLiveData()
         Thread(Runnable {
             val locale = preferences.getString(GNLocaleManager.SELECTED_LANGUAGE, "en")
-            val items = reportDao.findAllAclListItemByChild(id, locale)
 
+            val items = reportDao.findAllAclListItemByChild(id, locale)
             aclReports.postValue(items)
 
         }).start()

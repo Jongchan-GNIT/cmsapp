@@ -45,17 +45,7 @@ import com.scanlibrary.ScanConstants
 import de.hdodenhof.circleimageview.CircleImageView
 import kr.goodneighbors.cms.R
 import kr.goodneighbors.cms.common.Constants
-import kr.goodneighbors.cms.extensions.circleImageView
-import kr.goodneighbors.cms.extensions.convertDateFormat
-import kr.goodneighbors.cms.extensions.extension
-import kr.goodneighbors.cms.extensions.getStringValue
-import kr.goodneighbors.cms.extensions.getValue
-import kr.goodneighbors.cms.extensions.isNetworkAvailable
-import kr.goodneighbors.cms.extensions.observeOnce
-import kr.goodneighbors.cms.extensions.setItem
-import kr.goodneighbors.cms.extensions.setSelectKey
-import kr.goodneighbors.cms.extensions.timeToString
-import kr.goodneighbors.cms.extensions.viewsRecursive
+import kr.goodneighbors.cms.extensions.*
 import kr.goodneighbors.cms.service.entities.ACL
 import kr.goodneighbors.cms.service.entities.ATCH_FILE
 import kr.goodneighbors.cms.service.entities.INTV
@@ -63,9 +53,7 @@ import kr.goodneighbors.cms.service.entities.REMRK
 import kr.goodneighbors.cms.service.entities.RPT_BSC
 import kr.goodneighbors.cms.service.entities.RPT_DIARY
 import kr.goodneighbors.cms.service.entities.SWRT
-import kr.goodneighbors.cms.service.model.AclEditViewItem
-import kr.goodneighbors.cms.service.model.AclEditViewItemSearch
-import kr.goodneighbors.cms.service.model.SpinnerOption
+import kr.goodneighbors.cms.service.model.*
 import kr.goodneighbors.cms.service.viewmodel.AclViewModel
 import kr.goodneighbors.cms.ui.DialogImageViewFragment
 import kr.goodneighbors.cms.ui.MapsVillageActivity
@@ -92,10 +80,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onItemSelectedListener
 import org.jetbrains.anko.space
 import org.jetbrains.anko.spinner
-import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.dimen
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.support.v4.*
 import org.jetbrains.anko.switch
 import org.jetbrains.anko.textColorResource
 import org.jetbrains.anko.textResource
@@ -117,6 +102,8 @@ import java.util.*
 class AclEditFragment : Fragment() {
     companion object {
         const val REQUEST_CODE = 99
+        const val CHILD_REQUEST_CODE = 100
+        const val REQUEST_VIDEO_CAPTURE = 2
 
         fun newInstance(chrcp_no: String, rcp_no: String?, year: String): AclEditFragment {
             val fragment = AclEditFragment()
@@ -152,7 +139,12 @@ class AclEditFragment : Fragment() {
 
     private var aclLastImageFile: File? = null
     private var aclImageFile: File? = null
+    private var childImageFile: File? = null
     private var isChangeFile: Boolean = false
+    private var isChildChangeFile: Boolean = false
+
+    private var videoFile: File? = null
+    private var tempVideoFile: File? = null
 
     fun isEditable(): Boolean {
         return this.isEditable
@@ -244,6 +236,7 @@ class AclEditFragment : Fragment() {
                 val lastFiles = PREV_ACL_RPT_BSC?.ATCH_FILE
                 if (lastFiles != null && lastFiles.size > 0) {
 
+
                     val lastFileInfo = lastFiles[0]
                     val lastFile = File(contentsRootDir, "${lastFileInfo.FILE_PATH}/${lastFileInfo.FILE_NM}")
                     if (lastFile.exists()) {
@@ -298,11 +291,25 @@ class AclEditFragment : Fragment() {
                     ui.returnContainer.visibility = View.GONE
                 }
 
+                val age = profile?.AGE
                 INPUT_TYPE?.forEach { inputType ->
                     val rb = RadioButton(context)
                     rb.text = inputType.value
                     rb.tag = inputType
                     rb.isClickable = isEditable
+
+                    if(age.toString().toInt()!! >= 18) {
+                        if(rb.text.equals("Thank You Letter")) {
+                            rb.isChecked = true
+                        } else {
+                            //rb.isClickable = false
+                            rb.isEnabled = false
+                        }
+                    } else {
+                        if(rb.text.equals("Thank You Letter")) {
+                            rb.isEnabled = false
+                        }
+                    }
 
                     ui.typeViewContainer.addView(rb)
                 }
@@ -325,6 +332,7 @@ class AclEditFragment : Fragment() {
                         }
                     }
 
+                    /*
                     val files = RPT_BSC?.ATCH_FILE
                     if (files != null && files.size > 0) {
 
@@ -344,16 +352,65 @@ class AclEditFragment : Fragment() {
                     } else {
                         deleteImage()
                     }
+                     */
 
+
+                    val images = ArrayList<AclImageItem>()
+                    RPT_BSC?.ATCH_FILE?.forEach {
+                        if (it.IMG_DVCD == "331001") {
+                            aclImageFile = File("$contentsRootDir/${it.FILE_PATH}/${it.FILE_NM}")
+                            if (aclImageFile!!.exists()) {
+                                ui.aclImageView.layoutParams.width = dimen(R.dimen.px218)
+                                ui.aclImageView.layoutParams.height = dimen(R.dimen.px290)
+                                Glide.with(this@AclEditFragment)
+                                        .asBitmap()
+                                        .load(aclImageFile)
+                                        .into(ui.aclImageView)
+                            } else {
+                                deleteImage()
+                            }
+                        } else if (it.IMG_DVCD == "331007") {
+                            childImageFile = File("$contentsRootDir/${it.FILE_PATH}/${it.FILE_NM}")
+                            if (childImageFile!!.exists()) {
+                                ui.childImageView.layoutParams.width = dimen(R.dimen.px218)
+                                ui.childImageView.layoutParams.height = dimen(R.dimen.px290)
+                                Glide.with(this@AclEditFragment)
+                                        .asBitmap()
+                                        .load(childImageFile)
+                                        .into(ui.childImageView)
+                            } else {
+                                childDeleteImage()
+                            }
+                        } else if (it.IMG_DVCD == "331004") {
+                            try {
+                                videoFile = File("$contentsRootDir/${it.FILE_PATH}/${it.FILE_NM}")
+                                if (videoFile!!.exists()) {
+                                    Glide.with(this@AclEditFragment)
+                                            .asBitmap()
+                                            .load(videoFile)
+                                            .into(ui.videoImageView)
+                                } else {
+                                    videoFile = null
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
                     ui.substitutedSwitch.isChecked = RPT_BSC?.SWRT?.SWRT_YN ?: "" == "Y"
                     ui.relationshipSpinner.setSelectKey(RPT_BSC?.SWRT?.SWRTR_RLCD ?: "")
                     ui.reasonSpinner.setSelectKey(RPT_BSC?.SWRT?.SWRT_RNCD ?: "")
                     ui.remarkEditText.setText(RPT_BSC?.REMRK?.REMRK_ENG ?: "")
 
-
                     //ui.gallaryImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
                     ui.cameraImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
                     ui.deleteImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
+
+                    ui.childCameraImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
+                    ui.childDeleteImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
+
+                    ui.videoFromCameraImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
+                    ui.videoFromDeleteImageView.visibility = if (isEditable) View.VISIBLE else View.GONE
 
                     ui.substitutedSwitch.isEnabled = isEditable
                     ui.relationshipSpinner.isEnabled = isEditable
@@ -380,6 +437,22 @@ class AclEditFragment : Fragment() {
             }
         }
 
+        ui.childImageView.onClick {
+            if (aclImageFile != null && aclImageFile!!.exists()) {
+                val ft = activity!!.supportFragmentManager.beginTransaction()
+                val newFragment = DialogImageViewFragment.newInstance(childImageFile!!.path)
+                newFragment.show(ft, "acl_edit_fragment_view")
+            }
+        }
+
+        ui.videoImageView.onClick {
+            if (videoFile != null && videoFile!!.exists()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoFile!!.path))
+                intent.setDataAndType(Uri.parse(videoFile!!.path), "video/*")
+                startActivity(intent)
+            }
+        }
+
         ui.lastYearPhotoImageView.onClick {
             if (aclLastImageFile != null && aclLastImageFile!!.exists()) {
                 val ft = activity!!.supportFragmentManager.beginTransaction()
@@ -402,6 +475,41 @@ class AclEditFragment : Fragment() {
 
         ui.deleteImageView.onClick {
             deleteImage()
+        }
+
+        ui.childCameraImageView.onClick {
+            val intent = Intent(context, ScanActivity::class.java)
+            intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, ScanConstants.OPEN_CAMERA)
+            startActivityForResult(intent, CHILD_REQUEST_CODE)
+        }
+
+        ui.childDeleteImageView.onClick {
+            childDeleteImage()
+        }
+
+        ui.videoFromCameraImageView.onClick {
+            val prefix = "ACL_"
+            val storageDir = File(Environment.getExternalStorageDirectory().path + "/GoodNeighbors/", "Pictures")
+            val video = File.createTempFile(
+                    prefix, /* prefix */
+                    ".mp4", /* suffix */
+                    storageDir     /* directory */
+            )
+            tempVideoFile = File(video.path)
+
+            val providerURI = FileProvider.getUriForFile(activity!!, "kr.goodneighbors.cms.provider", video)
+            val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+            intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10)
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, providerURI)
+            if (intent.resolveActivity(activity!!.packageManager) != null) {
+                startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
+            }
+        }
+
+        ui.videoFromDeleteImageView.onClick {
+            ui.videoImageView.imageResource = R.drawable.movie
+            videoFile = null
         }
 
         ui.mapImageView.onClick {
@@ -433,25 +541,16 @@ class AclEditFragment : Fragment() {
                     }
                 }
             }
-            val currentYearType = (checkedRadioButton!!.tag as SpinnerOption).key
 
-
-            if (lastYearType == "3" && currentYearType != "3") {
-                toast(R.string.message_info_acl_type_change)
-            }
-
-
-
-
-
-            //toast(currentYearType.toString())
-
-            /*if (lastYearType == currentYearType) {
-                ui.genderDiffReasonContainer.visibility = View.GONE
-                ui.genderDiffReasonSpinner.setSelection(0)
+            if(!currentItem?.profile?.AGE.isNullOrBlank() && currentItem?.profile?.AGE.toString().toInt() >= 18) {
+                // 18세 이상일 땐 무조건 Thank you Letter
             } else {
-                ui.genderDiffReasonContainer.visibility = View.VISIBLE
-            }*/
+                val currentYearType = (checkedRadioButton!!.tag as SpinnerOption).key
+
+                if (lastYearType == "3" && currentYearType != "3") {
+                    toast(R.string.message_info_acl_type_change)
+                }
+            }
         }
 
         ui.substitutedSwitch.onCheckedChange { _, isChecked ->
@@ -595,6 +694,72 @@ class AclEditFragment : Fragment() {
                 logger.error("error : ", e)
             }
 
+        } else if (requestCode == CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            try {
+                val uri = data.extras!!.getParcelable<Uri>(ScanConstants.SCANNED_RESULT)
+
+                var bitmap = MediaStore.Images.Media.getBitmap(activity!!.applicationContext.contentResolver, uri)
+                if (bitmap.width > bitmap.height) {
+                    bitmap = rotateBitmapImage(bitmap)
+                }
+
+                val sizedImageFile = createImageFile()
+                fun onResizePhoto() {
+                    val origin = File(uri.path)
+                    if (origin.exists() && origin.isFile) {
+                        origin.delete()
+                    }
+
+                    if (sizedImageFile.exists()) {
+                        ui.childImageView.layoutParams.width = dimen(R.dimen.px218)
+                        ui.childImageView.layoutParams.height = dimen(R.dimen.px290)
+                        Glide.with(this).load(sizedImageFile).into(ui.childImageView)
+                    } else {
+                        childDeleteImage()
+                    }
+
+                    val providerURI = FileProvider.getUriForFile(activity!!, "kr.goodneighbors.cms.provider", sizedImageFile)
+                    logger.debug("providerURI : $providerURI")
+                }
+
+                Glide.with(this)
+                        .asBitmap()
+                        .load(bitmap)
+                        .into(object : SimpleTarget<Bitmap>(500, 667) {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                try {
+                                    val out = FileOutputStream(sizedImageFile)
+                                    resource.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                                    out.flush()
+                                    out.close()
+
+                                    childImageFile = sizedImageFile
+                                    isChildChangeFile = true
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                }
+                                onResizePhoto()
+                            }
+
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                logger.error("Glide.onLoadFailed : ", errorDrawable)
+                            }
+                        })
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                logger.error("error : ", e)
+            }
+        } else if (requestCode == REQUEST_VIDEO_CAPTURE  && resultCode == Activity.RESULT_OK) {
+            try {
+                videoFile = File(tempVideoFile?.path)
+                Glide.with(this)
+                        .asBitmap()
+                        .load(tempVideoFile?.path)
+                        .into(ui.videoImageView)
+            } catch (e: Exception) {
+                logger.error("REQUEST_VIDEO_CAPTURE  : ", e)
+            }
         }
     }
 
@@ -609,6 +774,17 @@ class AclEditFragment : Fragment() {
                 .into(ui.aclImageView)
     }
 
+    private fun childDeleteImage() {
+        childImageFile = null
+        ui.childImageView.layoutParams.width = dimen(R.dimen.px96)
+        ui.childImageView.layoutParams.height = dimen(R.dimen.px116)
+
+        Glide.with(this).load(R.drawable.icon_2)
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .into(ui.childImageView)
+    }
+
     private fun validate(): Boolean {
         var isValid = true
 
@@ -617,6 +793,15 @@ class AclEditFragment : Fragment() {
             ui.aclScanTitleTextView.textColorResource = R.color.colorAccent
         } else {
             ui.aclScanTitleTextView.setTextColor(defaultColorList)
+        }
+
+        if (currentItem?.profile?.AGE.toString().toInt() >= 18){
+            if (childImageFile == null) {
+                isValid = false
+                ui.childPhotoTitleTextView.textColorResource = R.color.colorAccent
+            } else {
+                ui.childPhotoTitleTextView.setTextColor(defaultColorList)
+            }
         }
 
         var checkedRadioButton: RadioButton? = null
@@ -737,19 +922,47 @@ class AclEditFragment : Fragment() {
         report.REMRK = remark
         remark.REMRK_ENG = remarkValue
 
-        if (isChangeFile) {
-            val targetDirPath = "sw/${Constants.BUILD}/$ctrCd/${report.CHRCP_NO}"
-            val targetDir = File(contentsRootDir, targetDirPath)
-            if (!targetDir.exists()) {
-                targetDir.mkdirs()
-            }
+        val targetDirPath = "sw/${Constants.BUILD}/$ctrCd/${report.CHRCP_NO}"
+        val targetDir = File(contentsRootDir, targetDirPath)
+        if (!targetDir.exists()) {
+            targetDir.mkdirs()
+        }
+        val files = ArrayList<ATCH_FILE>()
 
-            val imageGeneralFileName = "ACL_${year}_${chrcp_no}_${timestamp}.${aclImageFile!!.extension()}"
-            val targetFile = File(targetDir, imageGeneralFileName)
+        if (isChangeFile) {
+            val targetFileName = "ACL_${year}_${chrcp_no}_1_${timestamp}.${aclImageFile!!.extension()}"
+            val targetFile = File(targetDir, targetFileName)
             aclImageFile!!.copyTo(targetFile, true)
 
-            report.ATCH_FILE = arrayListOf(ATCH_FILE(RCP_NO = report.RCP_NO, SEQ_NO = 1, FILE_DVCD = "4", IMG_DVCD = "331001", FILE_PATH = targetDirPath, FILE_NM = imageGeneralFileName))
+            files.add(ATCH_FILE(RCP_NO = report.RCP_NO, SEQ_NO = files.size + 1,
+                    FILE_DVCD = "4", IMG_DVCD = "331001",
+                    FILE_PATH = targetDirPath, FILE_NM = targetFileName))
         }
+
+        if (isChildChangeFile) {
+            val targetFileName = "ACL_${year}_${chrcp_no}_2_${timestamp}.${childImageFile!!.extension()}"
+            val targetFile = File(targetDir, targetFileName)
+            childImageFile!!.copyTo(targetFile, true)
+
+            files.add(ATCH_FILE(RCP_NO = report.RCP_NO, SEQ_NO = files.size + 1,
+                    FILE_DVCD = "4", IMG_DVCD = "331007",
+                    FILE_PATH = targetDirPath, FILE_NM = targetFileName))
+        }
+
+        if (videoFile != null && videoFile!!.exists()) {
+            val targetFileName = "ACL_${year}_${chrcp_no}_VI_${timestamp.toDateFormat("yyyyMMddHHmmss")}.${videoFile!!.extension()}"
+            val targetFile = File(targetDir, targetFileName)
+
+            if (videoFile!! != targetFile) {
+                videoFile!!.copyTo(targetFile, true)
+            }
+
+            files.add(ATCH_FILE(SEQ_NO = files.size + 1, RCP_NO = report.RCP_NO,
+                    FILE_DVCD = report.RPT_DVCD, IMG_DVCD = "331004",
+                    FILE_NM = targetFileName, FILE_PATH = targetDirPath))
+        }
+
+        if (files.isNotEmpty()) report.ATCH_FILE = files
 
         logger.debug(GsonBuilder().create().toJson(report))
 
@@ -812,9 +1025,15 @@ class AclEditFragment : Fragment() {
 
 
         lateinit var aclImageView: ImageView
+        lateinit var childImageView: ImageView
+        lateinit var videoImageView: ImageView
         //lateinit var gallaryImageView: ImageView
         lateinit var cameraImageView: ImageView
         lateinit var deleteImageView: ImageView
+        lateinit var childCameraImageView: ImageView
+        lateinit var childDeleteImageView: ImageView
+        lateinit var videoFromCameraImageView: ImageView
+        lateinit var videoFromDeleteImageView: ImageView
 
         lateinit var relationshipSpinner: Spinner
         lateinit var reasonSpinner: Spinner
@@ -823,13 +1042,16 @@ class AclEditFragment : Fragment() {
         lateinit var remarkEditText: EditText
 
         lateinit var typeViewContainer: RadioGroup
-
+        lateinit var videoContainer: LinearLayout
+        lateinit var videoButtonContainer: LinearLayout
 
         lateinit var returnContainer: LinearLayout
         lateinit var returnRemarkTitleTextView: TextView
         lateinit var returnItemsContainer: LinearLayout
 
         lateinit var aclScanTitleTextView: TextView
+        lateinit var childPhotoTitleTextView: TextView
+        lateinit var videoTitleTextView: TextView
 
         lateinit var typeTitleTextView: TextView
 
@@ -993,10 +1215,10 @@ class AclEditFragment : Fragment() {
                             }.lparams(width = dimen(R.dimen.px218), height = dimen(R.dimen.px290))
 
                             linearLayout {
-                               // space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
-                               // gallaryImageView = imageView {
-                               //     imageResource = R.drawable.b_gallery02
-                               // }.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
+                                // space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
+                                // gallaryImageView = imageView {
+                                //     imageResource = R.drawable.b_gallery02
+                                // }.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
 
                                 space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
                                 cameraImageView = imageView {
@@ -1017,14 +1239,15 @@ class AclEditFragment : Fragment() {
 
                         linearLayout {
                             leftPadding = dimen(R.dimen.px20)
-                            gravity = Gravity.CENTER_VERTICAL
+                            bottomPadding = dimen(R.dimen.px20)
+                            gravity = Gravity.TOP
 
                             typeTitleTextView = textView("*2.1 " + owner.getString(R.string.label_type))
 
                             typeViewContainer = radioGroup {
-                                orientation = RadioGroup.HORIZONTAL
+                                orientation = RadioGroup.VERTICAL
                             }
-                        }.lparams(width = matchParent, height = dimen(R.dimen.px70))
+                        }.lparams(width = matchParent, height = dimen(R.dimen.px250))
 
                         linearLayout {
                             leftPadding = dimen(R.dimen.px20)
@@ -1071,6 +1294,73 @@ class AclEditFragment : Fragment() {
                             leftPadding = dimen(R.dimen.px20)
                             visibility = View.GONE
                             textColorResource = R.color.colorAccent
+                        }
+
+                        childPhotoTitleTextView = textView("2.5 " + owner.getString(R.string.label_child_photo)) {
+                            gravity = Gravity.CENTER_VERTICAL
+                            setTypeface(null, Typeface.BOLD)
+                        }.lparams(width = matchParent, height = dimen(R.dimen.px70))
+
+                        linearLayout {
+                            leftPadding = dimen(R.dimen.px30)
+                            gravity = Gravity.CENTER_VERTICAL
+
+                            frameLayout {
+                                view { backgroundColorResource = R.color.color888888 }.lparams(width = matchParent, height = dip(1))
+
+                                childImageView = imageView {
+                                    imageResource = R.drawable.icon_2
+                                }.lparams(width = dimen(R.dimen.px96), height = dimen(R.dimen.px116)) {
+                                    gravity = Gravity.CENTER
+                                }
+
+                                view { backgroundColorResource = R.color.color888888 }.lparams(width = matchParent, height = dip(1)) { gravity = Gravity.BOTTOM }
+                            }.lparams(width = dimen(R.dimen.px218), height = dimen(R.dimen.px290))
+
+                            linearLayout {
+                                space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
+                                childCameraImageView = imageView {
+                                    imageResource = R.drawable.b_camera02
+                                }.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
+
+                                space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
+                                childDeleteImageView = imageView {
+                                    imageResource = R.drawable.b_delete02
+                                }.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
+                            }
+                        }
+
+                        videoTitleTextView = textView("2.6 " + owner.getString(R.string.label_child_video)) {
+                            gravity = Gravity.CENTER_VERTICAL
+                            leftPadding = dimen(R.dimen.px20)
+                        }.lparams(width = matchParent, height = dimen(R.dimen.px40))
+
+                        linearLayout {
+                            videoContainer = verticalLayout {
+                                videoImageView = imageView {
+                                    imageResource = R.drawable.movie
+                                }.lparams(width = dimen(R.dimen.px315), height = dimen(R.dimen.px420)) {
+                                    gravity = Gravity.CENTER
+                                }
+
+                                videoButtonContainer = linearLayout {
+                                    gravity = Gravity.CENTER
+                                    //videoFromGalleryImageView = imageView {
+                                    //    imageResource = R.drawable.b_gallery02
+                                    //}.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
+
+                                    space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
+                                    videoFromCameraImageView = imageView {
+                                        imageResource = R.drawable.b_camera02
+                                    }.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
+
+                                    space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
+                                    videoFromDeleteImageView = imageView {
+                                        imageResource = R.drawable.b_delete02
+                                    }.lparams(width = dimen(R.dimen.px70), height = dimen(R.dimen.px70))
+                                }.lparams(width = matchParent, height = dimen(R.dimen.px116))
+                            }.lparams(width = 0, weight = 1f)
+                            space { }.lparams(width = 0, weight = 1f)
                         }
 
                         remarkTitleTextView = textView("3. " + owner.getString(R.string.label_remark)) {

@@ -98,6 +98,7 @@
     <string name="label_child_counseling_information">Informations sur le conseil aux enfants</string>
     <string name="label_child_information">Informations sur l\'enfant</string>
     <string name="label_child_photo">Photo d\'enfant</string>
+    <string name="label_child_video">Vidéo d\'enfant</string>
     <string name="label_child_reply_photo">Réponse Photo d\'enfant</string>
     <string name="label_child_working_as">L\'enfant qui travaille comme ?</string>
     <string name="label_children">Les enfants</string>

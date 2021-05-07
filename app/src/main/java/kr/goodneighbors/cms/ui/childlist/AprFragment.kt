@@ -54,21 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kr.goodneighbors.cms.R
 import kr.goodneighbors.cms.common.Constants
 import kr.goodneighbors.cms.common.RangeInputFilter
-import kr.goodneighbors.cms.extensions.circleImageView
-import kr.goodneighbors.cms.extensions.convertDateFormat
-import kr.goodneighbors.cms.extensions.extension
-import kr.goodneighbors.cms.extensions.getIntValue
-import kr.goodneighbors.cms.extensions.getRealPath
-import kr.goodneighbors.cms.extensions.getStringValue
-import kr.goodneighbors.cms.extensions.getValue
-import kr.goodneighbors.cms.extensions.isNetworkAvailable
-import kr.goodneighbors.cms.extensions.isNumber
-import kr.goodneighbors.cms.extensions.observeOnce
-import kr.goodneighbors.cms.extensions.setCodeItem
-import kr.goodneighbors.cms.extensions.setItem
-import kr.goodneighbors.cms.extensions.setSelectKey
-import kr.goodneighbors.cms.extensions.toDateFormat
-import kr.goodneighbors.cms.extensions.viewsRecursive
+import kr.goodneighbors.cms.extensions.*
 import kr.goodneighbors.cms.service.entities.ATCH_FILE
 import kr.goodneighbors.cms.service.entities.CD
 import kr.goodneighbors.cms.service.entities.CH_BSC
@@ -658,8 +644,15 @@ class AprFragment : Fragment() {
             }
             CROP_IMAGE_PICK_FROM_ALBUM -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    generalImage = File(albumURI!!.path)
-                    aprViewPagerAdapter?.setGeneralImage(generalImage)
+                    //generalImage = File(albumURI!!.path)
+                    //aprViewPagerAdapter?.setGeneralImage(generalImage)
+
+                    profileImage = File(albumURI!!.path)
+                    aprViewPagerAdapter?.setThumbnaleImage(profileImage)
+
+                    var file = File(photoURI!!.getRealPath(context!!))
+                    updatePhotoImage(file)
+
                 } else {
                     val file = File(albumURI!!.path)
                     if (file.exists()) file.delete()
@@ -672,7 +665,7 @@ class AprFragment : Fragment() {
                             val albumFile = createImageFile()
                             photoURI = data.data
                             albumURI = Uri.fromFile(albumFile)
-                            generalImage = albumFile
+                            // generalImage = albumFile
                             cropImage_general()
                         } catch (e: Exception) {
                             logger.error("REQUEST_TAKE_ALBUM", e)
@@ -1653,8 +1646,19 @@ class AprFragment : Fragment() {
                 && (ui.disabilitySpinner.getValue().isNullOrBlank() || ui.disabilityReasonSpinner.getValue().isNullOrBlank())) {
             isValidDisability = false
         }
+
         if (isValidDisability) ui.disabilitySwitch.setTextColor(defaultColorList)
         else ui.disabilitySwitch.textColorResource = R.color.colorAccent
+
+
+        val isDisability = ui.disabilitySwitch.isChecked
+        val prevIsDisability = editViewItem?.prev_rpt_bsc?.HLTH?.DISB_YN == "Y"
+        val prevDisability = editViewItem?.prev_rpt_bsc?.HLTH?.DISB_CD
+
+        if((isDisability && prevIsDisability && ui.disabilitySpinner.getValue() != prevDisability && ui.disabilityChangeReasonAnswer5.getValue() == "")
+                || (!isDisability && prevIsDisability && ui.disabilityChangeReasonAnswer1.getValue() == "")) {
+            isValidDisability = false
+        }
 
         var isValidIllness = true
         if (ui.illnessSwitch.isChecked
@@ -2097,6 +2101,10 @@ class AprFragment : Fragment() {
                     onClickGeneralDeleteClickListener = {
                         generalImage = null
                         aprViewPagerAdapter?.setGeneralImage(generalImage)
+
+                        // 프로필 이미지도 함께 삭제
+                        profileImage = null
+                        aprViewPagerAdapter?.setThumbnaleImage(profileImage)
                     },
                     onClickThumbnailAlbumClickListener = { getAlbumImage(PICK_FROM_ALBUM_PROFILE) },
                     onClickThumbnailDeleteClickListener = {
@@ -2483,9 +2491,9 @@ class AprFragment : Fragment() {
         cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         cropIntent.setDataAndType(photoURI, "image/*")
         cropIntent.putExtra("outputX", 500)
-        cropIntent.putExtra("outputY", 667)
+        cropIntent.putExtra("outputY", 500)
         cropIntent.putExtra("aspectX", 3)
-        cropIntent.putExtra("aspectY", 4)
+        cropIntent.putExtra("aspectY", 3)
         cropIntent.putExtra("scale", true)
         cropIntent.putExtra("output", albumURI)
 
@@ -3251,6 +3259,21 @@ class AprFragment : Fragment() {
         })
     }
 
+    private fun updatePhotoImage(file: File? = null) {
+        if (file == null) {
+            ui.photoImageView.imageResource = R.drawable.icon_2
+            ui.profileImageImageView.imageResource = R.drawable.icon_2
+        } else {
+            if (file.exists()) {
+                generalImage = file
+                aprViewPagerAdapter?.setGeneralImage(generalImage)
+
+            } else {
+                ui.photoImageView.imageResource = R.drawable.icon_2
+            }
+        }
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     class FragmentUI : AnkoComponent<AprFragment> {
@@ -3578,11 +3601,13 @@ class AprFragment : Fragment() {
 
                                 profileImageAlbumButton = imageView {
                                     imageResource = R.drawable.b_gallery
-                                }.lparams(width = dip(35), height = dip(35))
+                                }.lparams(width = dip(35), height = dip(0)
+                                )
                                 space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
                                 profileImageDeleteButton = imageView {
                                     imageResource = R.drawable.b_delete
-                                }.lparams(width = dip(35), height = dip(35))
+                                }.lparams(width = dip(35), height = dip(0)
+                                )
                             }.lparams(width = matchParent, height = wrapContent) {
                                 topMargin = dimen(R.dimen.px10)
                             }
@@ -4683,14 +4708,20 @@ class AprFragment : Fragment() {
                                     onClick {
                                         onClickThumbnailAlbumClickListener()
                                     }
-                                }.lparams(width = dip(35), height = dip(35))
+                                }.lparams(width = dip(35),
+                                        //height = dip(35)
+                                          height = dip(0)
+                                )
                                 space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
                                 imageView {
                                     imageResource = R.drawable.b_delete
                                     onClick {
                                         onClickThumbnailDeleteClickListener()
                                     }
-                                }.lparams(width = dip(35), height = dip(35))
+                                }.lparams(width = dip(35),
+                                        //height = dip(35)
+                                          height = dip(0)
+                                )
                             }.lparams(width = matchParent, height = wrapContent) {
                                 topMargin = dimen(R.dimen.px10)
                             }

@@ -362,12 +362,10 @@ interface ReportDao {
                 FROM TARGET_YEARS A
                 LEFT OUTER JOIN (
                     SELECT *
-                    FROM RELSH
+                    FROM CH_MST
                     WHERE CHRCP_NO = :chrcp_no
                 ) B
-                ON B.RELSH_DT < YEAR || '0401'
-                AND (RELCNL_DT IS NULL OR B.RELCNL_DT >= YEAR || '0401')
-                WHERE CHRCP_NO IS NOT NULL
+                ON B.CH_STCD = '1' 
             ) A
             LEFT OUTER JOIN (
                 SELECT * FROM RPT_BSC
@@ -858,7 +856,7 @@ interface ReportDao {
     """)
     fun findAllReportListByChild(chrcp_no: String, lastYear: Int, locale: String): List<ReportListItem>
 
-    @Query("""
+    @Query(""" 
         SELECT A.*
             , (SELECT IFNULL(CASE UPPER(:locale) WHEN 'FR' THEN CD_FRNM WHEN 'ES' THEN CD_ESNM ELSE CD_ENM END, CD_ENM) FROM CD WHERE GRP_CD = CASE WHEN A.RPT_DVCD = '1' THEN '70' ELSE '60' END AND CD = A.SCTP_CD) AS SCTP_NM
             , (SELECT SCHL_NM FROM SCHL WHERE SCHL_CD = A.SCHL_CD LIMIT 1) AS SCHL_NM
@@ -869,7 +867,7 @@ interface ReportDao {
                 , REPLACE(IFNULL(B.CH_EFNM, '') || ' ' || IFNULL(B.CH_EMNM, '') || ' ' || IFNULL(B.CH_ELNM, ''), '  ', ' ') AS CHILD_NAME
                 , IFNULL(B.CTR_CD, '') || '-' || IFNULL(B.BRC_CD, '') || IFNULL(B.PRJ_CD, '') || '-' || IFNULL(B.CH_CD, '') AS CHILD_CODE
                 , B.CH_STCD
-                , C.GNDR, C.BDAY, C.VLG_CD, C.TEL_NO, IFNULL(C.AGE, A.YEAR - SUBSTR(C.BDAY, 1, 4)) AS AGE
+                , C.GNDR, C.BDAY, C.VLG_CD, C.TEL_NO, (A.NOW_YEAR - SUBSTR(C.BDAY, 1, 4)) AS AGE
                 , D.SCTP_CD, D.SCHL_CD, D.GRAD
                 , E.FA_LTYN, E.MO_LTYN, E.EBRO_LTNUM, E.ESIS_LTNUM, E.YBRO_LTNUM, E.YSIS_LTNUM, E.MGDN_CD, E.MGDN_NM
                 , F.VLG_NM, F.CDNT_LAT AS VLG_LAT, F.CDNT_LONG AS VLG_LONG
@@ -879,6 +877,7 @@ interface ReportDao {
                    WHERE CHRCP_NO IN (SELECT CHRCP_NO FROM SIBL WHERE RCP_NO = A.RCP_NO LIMIT 1, 1)) AS SIBLING2
             FROM (
                 SELECT A.CHRCP_NO, A.RCP_NO , A.RPT_DVCD , A.YEAR, A.APRV_DT
+                       , (SELECT (CASE WHEN CAST(strftime('%m','now','localtime') AS INTEGER)  >= 4 THEN strftime('%Y','now','localtime') ELSE strftime('%Y','now','localtime') - 1 END)) AS NOW_YEAR
                 FROM RPT_BSC A
                 WHERE CHRCP_NO = :chrcp_no
                 AND RPT_DVCD IN ('1', '2') AND DEL_YN != 'Y' AND FIDG_YN = 'Y' AND RPT_STCD = '1'

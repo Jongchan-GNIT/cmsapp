@@ -184,6 +184,7 @@
     <string name="label_sponsors_letter">Sponsor\'s letter</string>
     <string name="label_letter_reply_information">Letter Reply Information</string>
     <string name="label_child_photo">Child photo</string>
+    <string name="label_child_video">Child Video</string>
     <string name="label_reply_scan">Reply Scan</string>
     <string name="label_reply_video">Reply Video</string>
     <string name="label_continue_spon_reason">Continue Sponsorship Reason</string>

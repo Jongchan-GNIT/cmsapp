@@ -9,6 +9,8 @@ data class AclEditViewItem(
         var lastYearType: String? = null,
         var lastYearGhostwriting: String? = null,
 
+        var FILE_PATH: String ?= null,
+
         var PREV_RPT_BSC: RPT_BSC? = null,
         var PREV_ACL_RPT_BSC: RPT_BSC? = null,
         var RPT_BSC: RPT_BSC? = null,
@@ -37,4 +39,8 @@ data class AclListItem(
         var RPT_TYPE_NM: String ?= null,
         var RPT_STNM: String ?= null,
         var GENERAL_FILE_PATH: String ?= null
+)
+
+data class AclImageItem(
+        var path: String? = null
 )

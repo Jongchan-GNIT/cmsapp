@@ -495,8 +495,12 @@ class CifFragment : Fragment() {
             }
             CROP_IMAGE_PICK_FROM_ALBUM -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    generalImage = File(albumURI!!.path)
-                    Glide.with(this).load(albumURI).into(ui.photoImageView)
+
+                    profileImage = File(albumURI!!.path)
+                    Glide.with(this).load(albumURI).into(ui.profileImageImageView)
+
+                    var file = File(photoURI!!.getRealPath(context!!))
+                    updatePhotoImage(file)
                 } else {
                     val file = File(albumURI!!.path)
                     if (file.exists()) file.delete()
@@ -509,8 +513,8 @@ class CifFragment : Fragment() {
                             val albumFile = createImageFile()
                             photoURI = data.data
                             albumURI = Uri.fromFile(albumFile)
-                            generalImage = albumFile
                             cropImage_general()
+
                         } catch (e: Exception) {
                             logger.error("REQUEST_TAKE_ALBUM", e)
                         }
@@ -742,6 +746,10 @@ class CifFragment : Fragment() {
         ui.photoDeleteButton.onClick {
             ui.photoImageView.imageResource = R.drawable.icon_2
             generalImage = null
+
+            // 프로필 사진 함께 삭제
+            ui.profileImageImageView.imageResource = R.drawable.icon_2
+            profileImage = null
         }
 
         // 프로필 사진 앨범
@@ -1609,6 +1617,24 @@ class CifFragment : Fragment() {
         }
     }
 
+    private fun updatePhotoImage(file: File? = null) {
+        if (file == null) {
+            ui.photoImageView.imageResource = R.drawable.icon_2
+            ui.profileImageImageView.imageResource = R.drawable.icon_2
+        } else {
+            if (file.exists()) {
+                generalImage = file
+
+                Glide.with(this).load(file)
+                        .apply(RequestOptions.skipMemoryCacheOf(true))
+                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                        .into(ui.photoImageView)
+            } else {
+                ui.photoImageView.imageResource = R.drawable.icon_2
+            }
+        }
+    }
+
     private fun updateConsentImage(file: File? = null) {
         consentImage = file
 
@@ -1803,9 +1829,9 @@ class CifFragment : Fragment() {
         cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         cropIntent.setDataAndType(photoURI, "image/*")
         cropIntent.putExtra("outputX", 500)
-        cropIntent.putExtra("outputY", 667)
+        cropIntent.putExtra("outputY", 500)
         cropIntent.putExtra("aspectX", 3)
-        cropIntent.putExtra("aspectY", 4)
+        cropIntent.putExtra("aspectY", 3)
         cropIntent.putExtra("scale", true)
         cropIntent.putExtra("output", albumURI)
 
@@ -2582,11 +2608,17 @@ class CifFragment : Fragment() {
 
                                 profileImageAlbumButton = imageView {
                                     imageResource = R.drawable.b_gallery
-                                }.lparams(width = dip(35), height = dip(35))
+                                }.lparams(width = dip(35),
+                                        //height = dip(35)
+                                          height = dip(0)
+                                )
                                 space {}.lparams(width = dimen(R.dimen.px20), height = matchParent)
                                 profileImageDeleteButton = imageView {
                                     imageResource = R.drawable.b_delete
-                                }.lparams(width = dip(35), height = dip(35))
+                                }.lparams(width = dip(35),
+                                        //height = dip(35)
+                                          height = dip(0)
+                                )
                             }.lparams(width = matchParent, height = wrapContent) {
                                 topMargin = dimen(R.dimen.px10)
                             }

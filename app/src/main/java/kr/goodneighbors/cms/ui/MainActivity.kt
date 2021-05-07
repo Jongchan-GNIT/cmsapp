@@ -309,6 +309,8 @@ class MainActivity : BaseActivity(), BaseActivityFragment.ChangeFragment {
                         bottomMargin = dimen(R.dimen.px46)
                     }
 
+                    /*
+                    2021.04.28 통계메뉴 삭제
                     linearLayout {
                         gravity = Gravity.CENTER_VERTICAL
                         onClick {
@@ -324,6 +326,7 @@ class MainActivity : BaseActivity(), BaseActivityFragment.ChangeFragment {
                         topMargin = dimen(R.dimen.px46)
                         bottomMargin = dimen(R.dimen.px46)
                     }
+                    */
 
                     linearLayout {
                         gravity = Gravity.CENTER_VERTICAL

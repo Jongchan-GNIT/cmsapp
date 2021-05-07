@@ -465,6 +465,7 @@ class ChildlistRepository @Inject constructor(
 
     private fun findAllAcl(s: ChildlistSearchItem) {
         logger.debug("findAllAcl($s)")
+
         var sql = """
                 SELECT A.*
                 FROM (
@@ -505,19 +506,33 @@ class ChildlistRepository @Inject constructor(
                                                     FROM RPT_BSC
                                                     WHERE RPT_DVCD = '1' AND RPT_STCD = '1' AND DEL_YN != 'Y' AND FIDG_YN = 'Y'
                                                 ) A
+            """
+        if ((preferences.getString("user_ctr_cd", "").equals("IND") && s.support.toString().equals("1")) || s.year.toString().toInt() < 2021) {
+            sql = """$sql
                                                 INNER JOIN (
-                                                    SELECT *
-                                                    FROM CH_MST
-                                                    WHERE DEL_YN != 'Y'
-                                                    AND CHRCP_NO IN (
-                                                        SELECT CHRCP_NO
-                                                        FROM RELSH
-                                                        WHERE RELSH_DT < '${s.year}0401'
-                                                        AND (RELCNL_DT IS NULL OR RELCNL_DT >= '${s.year}0401')
-                                                        GROUP BY CHRCP_NO
-                                                    )
+                                                        SELECT *
+                                                                FROM CH_MST
+                                                                WHERE DEL_YN != 'Y'
+                                                                AND CHRCP_NO IN (
+                                                                    SELECT CHRCP_NO
+                                                                    FROM RELSH
+                                                                    WHERE RELSH_DT < '${s.year}0401'
+                                                                    AND (RELCNL_DT IS NULL OR RELCNL_DT >= '${s.year}0401')
+                                                                    GROUP BY CHRCP_NO
+                                                                )
                                                 ) B
-                                                ON A.CHRCP_NO = B.CHRCP_NO
+                                                ON A.CHRCP_NO = B.CHRCP_NO"""
+        } else {
+            sql = """$sql
+                                                INNER JOIN (
+                                                        SELECT *
+                                                                FROM CH_MST
+                                                                WHERE DEL_YN != 'Y'
+                                                                AND CH_STCD = '1'
+                                                ) B
+                                                ON A.CHRCP_NO = B.CHRCP_NO"""
+        }
+        sql = """$sql
                                             ) A
                                             LEFT OUTER JOIN (
                                                 SELECT * FROM RPT_BSC
