@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.hardware.Camera
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -104,6 +105,8 @@ class AclEditFragment : Fragment() {
         const val REQUEST_CODE = 99
         const val CHILD_REQUEST_CODE = 100
         const val REQUEST_VIDEO_CAPTURE = 2
+        const val REQUEST_SCAN = 201
+        const val PICK_FROM_CAMERA = 0
 
         fun newInstance(chrcp_no: String, rcp_no: String?, year: String): AclEditFragment {
             val fragment = AclEditFragment()
@@ -145,6 +148,12 @@ class AclEditFragment : Fragment() {
 
     private var videoFile: File? = null
     private var tempVideoFile: File? = null
+
+    private var mCurrentPhotoPath: String = ""
+
+    private var imageUri: Uri? = null
+    private var photoURI: Uri? = null
+    private var albumURI: Uri? = null
 
     fun isEditable(): Boolean {
         return this.isEditable
@@ -467,10 +476,10 @@ class AclEditFragment : Fragment() {
         //    startActivityForResult(intent, REQUEST_CODE)
         //}
 
-        ui.cameraImageView.onClick {
+        ui.cameraImageView.setOnClickListener {
             val intent = Intent(context, ScanActivity::class.java)
             intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, ScanConstants.OPEN_CAMERA)
-            startActivityForResult(intent, REQUEST_CODE)
+            startActivityForResult(intent, REQUEST_SCAN)
         }
 
         ui.deleteImageView.onClick {
@@ -478,9 +487,7 @@ class AclEditFragment : Fragment() {
         }
 
         ui.childCameraImageView.onClick {
-            val intent = Intent(context, ScanActivity::class.java)
-            intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, ScanConstants.OPEN_CAMERA)
-            startActivityForResult(intent, CHILD_REQUEST_CODE)
+            captureCamera(PICK_FROM_CAMERA)
         }
 
         ui.childDeleteImageView.onClick {
@@ -694,11 +701,73 @@ class AclEditFragment : Fragment() {
                 logger.error("error : ", e)
             }
 
-        } else if (requestCode == CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+        } else if (requestCode == PICK_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
+            try {
+                logger.debug("PICK_FROM_CAMERA : {}", imageUri)
+                val originalFile = mCurrentPhotoPath
+
+                val sizedImageFile = createImageFile()
+                logger.debug("PICK_FROM_CAMERA resize: {}", sizedImageFile.path)
+
+                childImageFile = sizedImageFile
+                isChildChangeFile = true
+
+                fun onResizePhoto() {
+                    val origin = File(originalFile)
+
+                    ui.childImageView.layoutParams.width = dimen(R.dimen.px218)
+                    ui.childImageView.layoutParams.height = dimen(R.dimen.px290)
+                    Glide.with(this).load(sizedImageFile).into(ui.childImageView)
+
+                    val photoCropImageFile = createImageFile()
+                    val providerURI = FileProvider.getUriForFile(activity!!, "kr.goodneighbors.cms.provider", origin)
+                    photoURI = providerURI
+                    albumURI = Uri.fromFile(photoCropImageFile)
+                    //cropImage()
+                }
+
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageUri)
+                        .into(object : SimpleTarget<Bitmap>(500, 667) {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                try {
+                                    val out = FileOutputStream(sizedImageFile)
+                                    resource.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                                    out.flush()
+                                    out.close()
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                }
+                                onResizePhoto()
+                            }
+
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                logger.error("Glide.onLoadFailed : ", errorDrawable)
+                            }
+                        })
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                logger.error("error : ", e)
+            }
+
+        } else if (requestCode == REQUEST_VIDEO_CAPTURE  && resultCode == Activity.RESULT_OK) {
+            try {
+                videoFile = File(tempVideoFile?.path)
+                Glide.with(this)
+                        .asBitmap()
+                        .load(tempVideoFile?.path)
+                        .into(ui.videoImageView)
+            } catch (e: Exception) {
+                logger.error("REQUEST_VIDEO_CAPTURE  : ", e)
+            }
+        } else if (requestCode == REQUEST_SCAN && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 val uri = data.extras!!.getParcelable<Uri>(ScanConstants.SCANNED_RESULT)
 
                 var bitmap = MediaStore.Images.Media.getBitmap(activity!!.applicationContext.contentResolver, uri)
+
                 if (bitmap.width > bitmap.height) {
                     bitmap = rotateBitmapImage(bitmap)
                 }
@@ -707,15 +776,15 @@ class AclEditFragment : Fragment() {
                 fun onResizePhoto() {
                     val origin = File(uri.path)
                     if (origin.exists() && origin.isFile) {
-                        origin.delete()
+//                                origin.delete()
                     }
 
                     if (sizedImageFile.exists()) {
-                        ui.childImageView.layoutParams.width = dimen(R.dimen.px218)
-                        ui.childImageView.layoutParams.height = dimen(R.dimen.px290)
-                        Glide.with(this).load(sizedImageFile).into(ui.childImageView)
+                        ui.aclImageView.layoutParams.width = dimen(R.dimen.px218)
+                        ui.aclImageView.layoutParams.height = dimen(R.dimen.px290)
+                        Glide.with(this).load(sizedImageFile).into(ui.aclImageView)
                     } else {
-                        childDeleteImage()
+                        deleteImage()
                     }
 
                     val providerURI = FileProvider.getUriForFile(activity!!, "kr.goodneighbors.cms.provider", sizedImageFile)
@@ -733,8 +802,8 @@ class AclEditFragment : Fragment() {
                                     out.flush()
                                     out.close()
 
-                                    childImageFile = sizedImageFile
-                                    isChildChangeFile = true
+                                    aclImageFile = sizedImageFile
+                                    isChangeFile = true
                                 } catch (e: IOException) {
                                     e.printStackTrace()
                                 }
@@ -749,16 +818,6 @@ class AclEditFragment : Fragment() {
             } catch (e: IOException) {
                 e.printStackTrace()
                 logger.error("error : ", e)
-            }
-        } else if (requestCode == REQUEST_VIDEO_CAPTURE  && resultCode == Activity.RESULT_OK) {
-            try {
-                videoFile = File(tempVideoFile?.path)
-                Glide.with(this)
-                        .asBitmap()
-                        .load(tempVideoFile?.path)
-                        .into(ui.videoImageView)
-            } catch (e: Exception) {
-                logger.error("REQUEST_VIDEO_CAPTURE  : ", e)
             }
         }
     }
@@ -989,7 +1048,7 @@ class AclEditFragment : Fragment() {
                 storageDir     /* directory */
         )
 
-
+        mCurrentPhotoPath = image.absolutePath
         return image
     }
 
@@ -1006,6 +1065,83 @@ class AclEditFragment : Fragment() {
         return resizedBitmap
     }
 
+    private fun captureCamera(requestCode: Int) {
+
+        val state = Environment.getExternalStorageState()
+
+        if (Environment.MEDIA_MOUNTED == state) {
+            val camera = Camera.open()
+            val parameters = camera.parameters
+            val sizeList = parameters.supportedPictureSizes
+
+            // 원하는 최적화 사이즈를 1280x720 으로 설정
+//            val size = getOptimalPictureSize(parameters.supportedPictureSizes, 1280, 720)
+            val size = getOptimalPictureSize(sizeList, 667, 500)
+            parameters.setPreviewSize(size.width, size.height)
+            parameters.setPictureSize(size.width, size.height)
+
+            camera.parameters = parameters
+            camera.release()
+
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+            if (takePictureIntent.resolveActivity(activity!!.packageManager) != null) {
+                var photoFile: File? = null
+                try {
+                    photoFile = createImageFile()
+                } catch (ex: IOException) {
+                    logger.error("captureCamera Error", ex)
+                }
+
+                if (photoFile != null) {
+                    val providerURI = FileProvider.getUriForFile(activity!!, "kr.goodneighbors.cms.provider", photoFile)
+                    imageUri = providerURI
+
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, providerURI)
+
+                    startActivityForResult(takePictureIntent, requestCode)
+                }
+            }
+        } else {
+            toast(R.string.message_inaccessible_storage)
+            return
+        }
+    }
+
+    private fun getOptimalPictureSize(sizeList: MutableList<Camera.Size>, width: Int, height: Int): Camera.Size {
+        logger.debug("getOptimalPictureSize, 기준 width,height : ($width, $height)")
+        var prevSize = sizeList[0]
+        var optSize = sizeList[1]
+        sizeList.forEach { size: Camera.Size ->
+            // 현재 사이즈와 원하는 사이즈의 차이
+            val diffWidth = Math.abs((size.width - width))
+            val diffHeight = Math.abs((size.height - height))
+
+            // 이전 사이즈와 원하는 사이즈의 차이
+            val diffWidthPrev = Math.abs((prevSize.width - width))
+            val diffHeightPrev = Math.abs((prevSize.height - height))
+
+            // 현재까지 최적화 사이즈와 원하는 사이즈의 차이
+            val diffWidthOpt = Math.abs((optSize.width - width))
+            val diffHeightOpt = Math.abs((optSize.height - height))
+
+            // 이전 사이즈보다 현재 사이즈의 가로사이즈 차이가 적을 경우 && 현재까지 최적화 된 세로높이 차이보다 현재 세로높이 차이가 적거나 같을 경우에만 적용
+            if (diffWidth < diffWidthPrev && diffHeight <= diffHeightOpt) {
+                optSize = size
+                logger.debug("가로사이즈 변경 / 기존 가로사이즈 : ${prevSize.width}, 새 가로사이즈 : ${optSize.width}")
+            }
+            // 이전 사이즈보다 현재 사이즈의 세로사이즈 차이가 적을 경우 && 현재까지 최적화 된 가로길이 차이보다 현재 가로길이 차이가 적거나 같을 경우에만 적용
+            if (diffHeight < diffHeightPrev && diffWidth <= diffWidthOpt) {
+                optSize = size
+                logger.debug("세로사이즈 변경 / 기존 세로사이즈 : ${prevSize.height}, 새 세로사이즈 : ${optSize.height}")
+            }
+
+            // 현재까지 사용한 사이즈를 이전 사이즈로 지정
+            prevSize = size
+        }
+        logger.debug("결과 OptimalPictureSize : ${optSize.width}, ${optSize.height}")
+        return optSize
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     class FragmentUI : AnkoComponent<AclEditFragment> {
@@ -1247,7 +1383,7 @@ class AclEditFragment : Fragment() {
                             typeViewContainer = radioGroup {
                                 orientation = RadioGroup.VERTICAL
                             }
-                        }.lparams(width = matchParent, height = dimen(R.dimen.px250))
+                        }.lparams(width = matchParent, height = dimen(R.dimen.px290))
 
                         linearLayout {
                             leftPadding = dimen(R.dimen.px20)

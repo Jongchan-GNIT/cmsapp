@@ -619,7 +619,12 @@ class ChildlistRepository @Inject constructor(
                         ON A.CHRCP_NO = B.CHRCP_NO
                     ) A
                 ) A
-                WHERE CHRCP_NO IS NOT NULL
+                WHERE CHRCP_NO IN (SELECT A.CHRCP_NO 
+                                     FROM CH_MST A INNER JOIN RPT_BSC B ON A.CHRCP_NO = B.CHRCP_NO
+                                    WHERE B.RPT_DVCD = '1'
+                                      AND B.DEL_YN = 'N'
+                                      AND B.APRV_DT < '${s.year}0401'
+                                      AND A.CH_STCD = '1')
            """
         if (!s.support.isNullOrBlank()) {
             sql = "$sql AND DNCTR_CD = '${s.support}'"
